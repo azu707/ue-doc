@@ -10,4 +10,11 @@
 
 ## 設定項目
 
-このノードの詳細な設定項目はまだ整理されていません。
+| プロパティ | 型 | 初期値 | 説明 |
+| --- | --- | --- | --- |
+| `PointCenterLocation` | `FVector` | `(0.5,0.5,0.5)` | ローカル境界内での正規化位置。各軸 0〜1 の範囲で指定し、境界サイズは維持したまま中心のみを再配置します。 |
+
+## 実装メモ
+
+- `PCGPointHelpers::ResetPointCenter` を使って、境界の最小／最大値とトランスフォームの位置を再計算します。<br><span style='color:gray'>(The helper offsets bounds min/max and transform location while preserving extents.)</span>
+- ポイントのスケールや回転には影響せず、中心座標とバウンディングボックスのみを変更します。<br><span style='color:gray'>(Only translation inside the bounds is affected; rotation/scale remain untouched.)</span>

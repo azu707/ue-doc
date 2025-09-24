@@ -10,4 +10,13 @@
 
 ## 設定項目
 
-このノードの詳細な設定項目はまだ整理されていません。
+| プロパティ | 型 | 初期値 | 説明 |
+| --- | --- | --- | --- |
+| `Extents` | `FVector` | `(1,1,1)` | 目標とするエクステント（半径）。`Mode` によって適用方法が変わります。 |
+| `Mode` | `EPCGPointExtentsModifierMode` | `Set` | エクステントの適用モード。固定値設定、最小・最大制約、加算、乗算から選択します。 |
+
+## 実装メモ
+
+- 実行時はポイントデータをコピーし、`BoundsMin`/`BoundsMax` のみを更新します。<br><span style='color:gray'>(The element clones point data and touches only the bounds ranges.)</span>
+- `Set` はエクステントを強制的に指定値へ置き換え、`Minimum`／`Maximum` は既存エクステントとの逐次比較、`Add`／`Multiply` はベクトル演算で増減させます。<br><span style='color:gray'>(Each mode wraps a lambda that either clamps or applies arithmetic to the current extents.)</span>
+- エクステントから導出されるポイント中心は変更されないため、必要に応じて別ノード（例: Reset Point Center）と組み合わせます。<br><span style='color:gray'>(Point centers remain untouched; combine with other nodes if you need to recenter after changing bounds.)</span>

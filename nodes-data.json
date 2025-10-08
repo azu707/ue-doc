@@ -1,0 +1,3148 @@
+{
+  "nodes": [
+    {
+      "id": "16_GetActorData",
+      "name": "Get Actor Data",
+      "overview": "Get Actor Dataノードは、選択されたアクターからPCG互換のデータコレクションを構築するための基本的なノードです。このノードはアクターのコンポーネント（プリミティブ、スプライン、ボリュームなど）を解析し、PCGで利用可能なデータとして抽出します。",
+      "features": [
+        "コンポーネント解析モード: アクターのコンポーネント（プリミティブ、スプライン、ボリューム）を解析してデータを抽出",
+        "シングルポイントモード: アクターの位置とバウンドを持つ単一ポイントを生成",
+        "プロパティモード: アクタープロパティからデータコレクションを取得",
+        "PCGコンポーネントモード: 他のPCGコンポーネントの生成出力をコピー",
+        "アクター参照モード: アクター参照のみを持つエントリを生成"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/16_GetActorData.md",
+      "tags": [
+        "スプライン",
+        "ボリューム"
+      ]
+    },
+    {
+      "id": "17_GetBounds",
+      "name": "Get Bounds",
+      "overview": "Get Boundsノードは、入力された空間データのバウンド（境界ボックス）を計算し、その最小値と最大値を属性として出力するノードです。このノードは空間データの範囲情報を取得し、パラメータデータとして利用可能にします。",
+      "features": [
+        "入力データが空間データ（UPCGSpatialData）であることを確認",
+        "データがバウンド（境界）を持つことを検証",
+        "バウンドの最小値（BoundsMin）と最大値（BoundsMax）を抽出",
+        "新しいパラメータデータを作成し、BoundsMinとBoundsMaxを属性として追加",
+        "入力タグを保持しながら結果を出力"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/17_GetBounds.md",
+      "tags": [
+        "属性操作",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "18_GetDynamicMeshData",
+      "name": "Get Dynamic Mesh Data",
+      "overview": "Get Dynamic Mesh Dataノードは、ダイナミックメッシュコンポーネントから空間データを取得するための特殊なノードです。このノードは、ランタイムで生成または変更されるメッシュデータをPCGシステムで利用可能にします。",
+      "features": [
+        "Get Actor Data ノード経由: ParseActorComponentsモードでダイナミックメッシュコンポーネントを持つアクターを解析",
+        "Get Primitive Data ノード経由: プリミティブコンポーネントとしてダイナミックメッシュを取得",
+        "カスタム実装: プロジェクト固有のカスタムノードとして実装"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/18_GetDynamicMeshData.md",
+      "tags": [
+        "メッシュ処理",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "19_GetLandscapeData",
+      "name": "Get Landscape Data",
+      "overview": "Get Landscape Dataノードは、選択されたアクターからランドスケープデータのコレクションを構築するための専用ノードです。複数のランドスケーププロキシを単一のUPCGLandscapeDataとして統合し、高さ情報やレイヤーウェイトなどのランドスケープ属性を効率的にサンプリングできるようにします。",
+      "features": [
+        "複数ランドスケープの統合: 複数のランドスケーププロキシを1つのデータとして管理",
+        "高さ情報の取得: ランドスケープの高さマップデータを取得",
+        "レイヤーウェイトの取得: ペイントレイヤーのウェイト情報を取得",
+        "バウンド管理: エディタでの最適化のための境界設定",
+        "キャッシュ対応: ランドスケープキャッシュを利用した効率的なアクセス"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/19_GetLandscapeData.md",
+      "tags": [
+        "サンプリング",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "20_GetPCGComponentData",
+      "name": "Get PCG Component Data",
+      "overview": "Get PCG Component Dataノードは、選択されたアクター上の他のPCGコンポーネントからデータのコレクションを構築するノードです。他のPCGコンポーネントの生成済み出力を取得し、それを現在のPCGグラフで再利用できます。各出力には、収集元のグリッドサイズを示すタグが自動的に付与されます（\"PCG_GridSize_\"プレフィックス付き、例: \"PCG_GridSize_128...",
+      "features": [
+        "他のPCGコンポーネントからのデータ取得: 同じアクターまたは他のアクター上のPCGコンポーネントの出力を取得",
+        "グリッドサイズの自動タグ付け: パーティション化されたPCGコンポーネントの場合、グリッドサイズ情報がタグとして追加される",
+        "循環依存の防止: コンポーネントは自身や実行コンテキスト内の他のコンポーネントからデータを取得できない",
+        "データの再利用: 既に生成されたPCGデータを別のグラフで利用可能"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/20_GetPCGComponentData.md",
+      "tags": [
+        "タグ操作",
+        "生成"
+      ]
+    },
+    {
+      "id": "21_GetPointsCount",
+      "name": "Get Points Count",
+      "overview": "Get Points Countノードは、入力されたポイントデータ内のポイント数を取得し、その数値を属性として含むパラメータデータを出力するノードです。このノードは、ポイント数に基づいた条件分岐や計算を行う際に使用します。",
+      "features": [
+        "ポイント数が閾値を超えた場合の処理分岐",
+        "ポイント数に基づいたスケーリング",
+        "デバッグ情報としてのポイント数の確認"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/21_GetPointsCount.md",
+      "tags": [
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "22_GetPrimitiveData",
+      "name": "Get Primitive Data",
+      "overview": "Get Primitive Dataノードは、選択されたアクターのプリミティブコンポーネントからプリミティブデータのコレクションを構築するノードです。スタティックメッシュコンポーネント、ダイナミックメッシュコンポーネント、スケルタルメッシュコンポーネントなど、UPrimitiveComponentから派生したコンポーネントを持つアクターからデータを抽出します。",
+      "features": [
+        "Static Mesh Components: スタティックメッシュのジオメトリとトランスフォーム",
+        "Dynamic Mesh Components: ダイナミックメッシュのジオメトリ",
+        "Skeletal Mesh Components: スケルタルメッシュのジオメトリ",
+        "Shape Components: ボックス、球、カプセルなどのシェイプコンポーネント",
+        "その他のプリミティブ: UPrimitiveComponentから派生したカスタムコンポーネント"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/22_GetPrimitiveData.md",
+      "tags": [
+        "メッシュ処理"
+      ]
+    },
+    {
+      "id": "23_GetSplineControlPoints",
+      "name": "Get Spline Control Points",
+      "overview": "Get Spline Control Pointsノードは、スプラインデータから制御点を抽出し、ポイントデータとして出力するノードです。スプラインの各制御点の位置、タンジェント情報、およびメタデータを取得できます。これにより、スプラインの制御点に基づいた配置や処理が可能になります。",
+      "features": [
+        "制御点の位置とトランスフォーム: 各制御点のワールド空間での位置、回転、スケール",
+        "タンジェント情報: 各制御点の到着タンジェント（Arrive Tangent）と出発タンジェント（Leave Tangent）",
+        "メタデータ: 元のスプラインデータに関連付けられたメタデータエントリ",
+        "シード値: 各ポイントに対して位置ベースのシード値を自動生成"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/23_GetSplineControlPoints.md",
+      "tags": [
+        "スプライン",
+        "ポイント",
+        "配置"
+      ]
+    },
+    {
+      "id": "24_GetSplineData",
+      "name": "Get Spline Data",
+      "overview": "Get Spline Dataノードは、選択されたアクターからスプライン（ポリライン）データのコレクションを構築するノードです。スプラインコンポーネントを持つアクターを検索し、それらのスプライン情報をPCGで利用可能なポリラインデータとして抽出します。",
+      "features": [
+        "USplineComponent: 標準のスプラインコンポーネント",
+        "ULandscapeSplineControlPoint: ランドスケープスプライン制御点",
+        "ULandscapeSplineSegment: ランドスケープスプラインセグメント",
+        "カスタムスプライン: スプラインインターフェースを実装したカスタムコンポーネント"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/24_GetSplineData.md",
+      "tags": [
+        "スプライン"
+      ]
+    },
+    {
+      "id": "25_GetTextureData",
+      "name": "Get Texture Data",
+      "overview": "Get Texture Dataノードは、テクスチャアセットまたはテクスチャコンポーネントから2Dテクスチャデータを取得し、PCGで利用可能な空間データとして提供するノードです。テクスチャのピクセル情報を使用して、カラー、高さ、密度などのデータをサンプリングできます。",
+      "features": [
+        "高さマップ: テクスチャの輝度値を高さとして使用",
+        "密度マップ: ピクセル値をポイント密度として使用",
+        "カラーマップ: RGB情報を属性として使用",
+        "マスク: アルファチャンネルをマスクとして使用"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/25_GetTextureData.md",
+      "tags": [
+        "サンプリング",
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "26_GetVirtualTextureData",
+      "name": "Get Virtual Texture Data",
+      "overview": "Get Virtual Texture Dataノードは、選択されたアクターからランタイムバーチャルテクスチャ（RVT）データのコレクションを構築するノードです。バーチャルテクスチャボリュームから高解像度のテクスチャ情報を効率的に取得し、PCGで利用可能な空間データとして提供します。",
+      "features": [
+        "Base Color: ベースカラー情報",
+        "Normal: 法線情報",
+        "Height: 高さ情報",
+        "Specular: スペキュラー情報"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/26_GetVirtualTextureData.md",
+      "tags": [
+        "ボリューム"
+      ]
+    },
+    {
+      "id": "27_GetVolumeData",
+      "name": "Get Volume Data",
+      "overview": "Get Volume Dataノードは、選択されたアクターからボリュームデータのコレクションを構築するノードです。ボリュームアクター（Box、Sphere、Capsuleなど）の形状情報を取得し、PCGで利用可能な空間データとして提供します。",
+      "features": [
+        "PCG Volume: 専用のPCGボリュームアクター",
+        "Blocking Volume: コリジョンボリューム",
+        "Box Volume: ボックス形状のボリューム",
+        "Sphere Volume: 球形状のボリューム",
+        "Capsule Volume: カプセル形状のボリューム"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/27_GetVolumeData.md",
+      "tags": [
+        "ボリューム"
+      ]
+    },
+    {
+      "id": "28_GetWaterSplineData",
+      "name": "Get Water Spline Data",
+      "overview": "Get Water Spline Dataノードは、Water Pluginのウォータースプラインコンポーネントから専用のスプラインデータを取得するノードです。河川、湖、海洋などの水域の形状情報をPCGで利用可能にし、水辺の植生配置や地形生成に活用できます。",
+      "features": [
+        "水辺の植生配置: スプラインに沿って草や木を配置",
+        "桟橋や構造物の配置: 水域の形状に基づいた構造物の配置",
+        "地形の調整: 水域に合わせた地形の生成"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/28_GetWaterSplineData.md",
+      "tags": [
+        "スプライン",
+        "生成",
+        "空間演算",
+        "配置"
+      ]
+    },
+    {
+      "id": "32_MergePoints",
+      "name": "Merge Points（ポイントマージ）",
+      "overview": "Merge Pointsノードは、複数のポイントデータソースを単一のポイントデータ出力にマージ（統合）するノードです。動的入力ピンを持ち、複数のポイントセットを1つにまとめることができます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/32_MergePoints.md",
+      "tags": [
+        "ポイント",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "33_MutateSeed",
+      "name": "Mutate Seed（シード変異）",
+      "overview": "Mutate Seedノードは、各ポイントの位置情報とユーザー指定のシード値を使用して、新しいランダムシードを生成し、すべてのポイントに適用するノードです。これにより、ポイントごとに異なる決定論的なランダム値を生成できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/33_MutateSeed.md",
+      "tags": [
+        "ポイント",
+        "ランダム",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "34_NormalToDensity",
+      "name": "Normal To Density（法線から密度へ）",
+      "overview": "Normal To Densityノードは、ポイントの法線ベクトルと指定された方向ベクトルとの角度を計算し、その結果をポイントの密度値に適用するノードです。地形の傾斜に応じた密度調整など、法線方向に基づいたフィルタリングに使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/34_NormalToDensity.md",
+      "tags": [
+        "フィルタ",
+        "ポイント",
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "35_PointFromMesh",
+      "name": "Point From Mesh（メッシュからポイント生成）",
+      "overview": "Point From Meshノードは、指定されたStaticMeshへの参照を含む単一のポイントを生成するノードです。メッシュパスを属性として保持し、後続のメッシュスポーンノードで使用できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/35_PointFromMesh.md",
+      "tags": [
+        "ポイント",
+        "メッシュ処理",
+        "属性操作",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "36_PointNeighborhood",
+      "name": "Point Neighborhood（ポイント近傍）",
+      "overview": "Point Neighborhoodノードは、各ポイントの近隣にあるポイント群から、平均密度、平均色、平均位置などの統計的な量を計算するノードです。ポイント間の関係性に基づいた処理を行う際に使用します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/36_PointNeighborhood.md",
+      "tags": [
+        "ポイント",
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "37_PrimitiveCrossSection",
+      "name": "Primitive Cross-Section（プリミティブ断面）",
+      "overview": "Primitive Cross-Sectionノードは、1つ以上のプリミティブ（メッシュ）の頂点特徴に基づいて、スプラインの断面図を作成するノードです。メッシュを指定方向にスライスし、同一平面上の頂点からスプライン形状を抽出します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/37_PrimitiveCrossSection.md",
+      "tags": [
+        "スプライン",
+        "メッシュ処理",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "38_Projection",
+      "name": "Projection（投影）",
+      "overview": "Projectionノードは、ソースデータをターゲット形状に投影するノードです。ポイント、スプライン、ボリュームなどを地形やその他の形状に投影し、密度やその他のプロパティをサンプリングします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/38_Projection.md",
+      "tags": [
+        "サンプリング",
+        "スプライン",
+        "ボリューム",
+        "ポイント",
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "39_WorldRaycast",
+      "name": "World Raycast（ワールドレイキャスト / Proxy）",
+      "overview": "World Raycastノード（別名: Proxy）は、提供されたポイントから指定された方向にレイキャストまたはコリジョン形状スイープを実行し、ヒット位置にポイントを移動するノードです。地形や他のアクターへのポイント投影に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/39_WorldRaycast.md",
+      "tags": [
+        "コリジョン",
+        "ポイント",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "40_SpatialNoise",
+      "name": "Spatial Noise（空間ノイズ）",
+      "overview": "Spatial Noiseノードは、様々なフラクタルノイズを使用してポイントをフィルタリングまたは属性を生成するノードです。Perlin、Caustic、Voronoi、FBM（Fractional Brownian Motion）、EdgeMaskなど、複数のノイズタイプをサポートします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/40_SpatialNoise.md",
+      "tags": [
+        "フィルタ",
+        "ポイント",
+        "属性操作",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "41_SplineDirection",
+      "name": "Spline Direction（スプライン方向）",
+      "overview": "Spline Directionノード（旧: Reverse Spline）は、スプラインのコントロールポイントの順序を制御するノードです。無条件反転、または時計回り/反時計回りに強制的に向きを揃えることができます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/41_SplineDirection.md",
+      "tags": [
+        "スプライン",
+        "ポイント",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "42_SplineToSegment",
+      "name": "Spline to Segment（スプラインからセグメントへ）",
+      "overview": "Spline to Segmentノードは、スプラインを入力として受け取り、接続された2つのコントロールポイントで定義される各セグメントをポイントデータとして出力するノードです。各ポイントは2つのコントロールポイントの中間に配置され、エクステントはその半分の差になります。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Grammar（文法/構造処理）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/42_SplineToSegment.md",
+      "tags": [
+        "スプライン",
+        "ポイント",
+        "配置"
+      ]
+    },
+    {
+      "id": "AddAttribute",
+      "name": "Add Attribute",
+      "overview": "Add Attributeノードは、既存の空間データ（Spatial Data）またはアトリビュートセット（Attribute Set）に新しいアトリビュートを追加するノードです。追加するアトリビュートは、定数値として直接設定するか、別のアトリビュートセットからコピーすることができます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/AddAttribute.md",
+      "tags": [
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AddComponent",
+      "name": "Add Component",
+      "overview": "Add Componentノードは、PCGで生成されたポイントデータに基づいて、指定されたアクターにアクターコンポーネントを動的に追加するノードです。各ポイントのトランスフォーム情報を使用して、適切な位置にコンポーネントを配置し、PCGが管理するリソースとして登録します。",
+      "features": [
+        "コンポーネントの動的生成: 入力ポイントごとにアクターコンポーネントを作成",
+        "クラスまたはテンプレートベースの生成: 固定クラスまたは属性ベースでコンポーネントタイプを選択可能",
+        "ターゲットアクターの指定: 専用ピンまたはデフォルト（PCGコンポーネントのオーナー）にコンポーネントを追加",
+        "トランスフォームの適用: ポイントデータのトランスフォーム情報をコンポーネントに適用",
+        "コンポーネント参照の出力: 生成されたコンポーネントへの参照を属性として出力"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/AddComponent.md",
+      "tags": [
+        "ポイント",
+        "汎用",
+        "生成",
+        "配置"
+      ]
+    },
+    {
+      "id": "AddTags",
+      "name": "Add Tags",
+      "overview": "Add Tagsノードは、PCGの出力データに指定されたタグを追加するシンプルなノードです。タグはデータのフィルタリング、識別、分類に使用され、グラフ内の他のノードで特定のデータを選択するために利用できます。prefix（接頭辞）とsuffix（接尾辞）を使用して、タグ名を動的に構築することも可能です。",
+      "features": [
+        "複数タグの一括追加: カンマ区切りで複数のタグを一度に追加",
+        "Prefix/Suffixのサポート: すべてのタグに共通の接頭辞/接尾辞を追加",
+        "キー:バリュー形式のタグ対応: タグをキー:バリュー形式で扱い、prefixとsuffixをキー部分にのみ適用",
+        "動的ピン: 入力されたすべてのピンのデータにタグを適用",
+        "シングルプライマリピンモード: 最も効率的な実行ループモードを使用"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/AddTags.md",
+      "tags": [
+        "汎用",
+        "タグ操作"
+      ]
+    },
+    {
+      "id": "AppendMeshesFromPoints",
+      "name": "Append Meshes From Points",
+      "overview": "Append Meshes From Pointsノードは、ポイントの位置と変換にメッシュを追加するノードです。単一のスタティックメッシュ、ポイント属性から取得した複数のメッシュ、または別のダイナミックメッシュを使用できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/AppendMeshesFromPoints.md",
+      "tags": [
+        "ポイント",
+        "メッシュ処理",
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "ApplyHierarchy",
+      "name": "Apply Hierarchy",
+      "overview": "Apply Hierarchyノードは、階層的な親子関係を持つポイントデータに対して、親のトランスフォームを子に適用するノードです。PCG Data Assetsで定義された階層深度、ポイントインデックス、親インデックスのスキームに基づいて階層トランスフォームを適用します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Advanced",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ApplyHierarchy.md",
+      "tags": [
+        "ポイント",
+        "属性セット"
+      ]
+    },
+    {
+      "id": "ApplyOnObject",
+      "name": "Apply On Object",
+      "overview": "Apply On Objectノードは、ターゲットオブジェクト（主にアクター）に対してプロパティのオーバーライドと関数の実行を行うノードです。PCGグラフから動的にオブジェクトの設定を変更し、特定の関数を呼び出すことで、アクターの状態を制御できます。",
+      "features": [
+        "プロパティオーバーライド: ターゲットオブジェクトのプロパティ値を動的に変更",
+        "関数実行: パラメータなしの関数をターゲットオブジェクト上で実行",
+        "非同期/同期オブジェクトロード: オブジェクト参照を非同期または同期でロード",
+        "複数オブジェクトの一括処理: 複数のターゲットオブジェクトに対して同じ操作を適用",
+        "動的ピン対応: Property Overridesピンで追加データを受け取り"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ApplyOnObject.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "ApplyScaleToBounds",
+      "name": "Apply Scale To Bounds",
+      "overview": "Apply Scale To Boundsノードは、各ポイントのスケールをバウンドに適用し、スケールを1.0にリセットするノードです。これにより、スケール情報がバウンドサイズに転送されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ApplyScaleToBounds.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "Attract",
+      "name": "Attract",
+      "overview": "Attractノードは、ソースポイントをターゲットポイントに向かって引き寄せる(補間する)ノードです。距離や属性値に基づいて最も適切なターゲットポイントを選択し、重み付き平均によってポイントを融合します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Attract.md",
+      "tags": [
+        "ポイント",
+        "属性操作",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "AttributeBitwiseOp",
+      "name": "Attribute Bitwise Op",
+      "overview": "Attribute Bitwise Opノードは、整数型の属性に対してビット演算を実行します。And、Not、Or、Xorの4つのビット演算をサポートしており、ポイント属性やメタデータに対してビットマスク操作を行う際に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeBitwiseOp.md",
+      "tags": [
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeBooleanOp",
+      "name": "Attribute Boolean Op",
+      "overview": "Attribute Boolean Opノードは、ブール型の属性に対して論理演算を実行します。And、Not、Or、Xorの4つの論理演算をサポートしており、ポイント属性やメタデータに対して条件判定やフィルタリングを行う際に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeBooleanOp.md",
+      "tags": [
+        "フィルタ",
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeCast",
+      "name": "Attribute Cast",
+      "overview": "Attribute Castノードは、属性を別の型にキャストします。ブロードキャスト可能なキャスト（double -> FVectorなど）と構築可能なキャスト（double -> floatなど）の両方をサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeCast.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeCompareOp",
+      "name": "Attribute Compare Op",
+      "overview": "Attribute Compare Opノードは、2つの属性値を比較し、比較結果をブール値として出力します。等価、不等価、大小関係など、6種類の比較演算をサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeCompareOp.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeMathsOp",
+      "name": "Attribute Maths Op",
+      "overview": "Attribute Maths Opノードは、数値型の属性に対して算術演算を実行します。単項、二項、三項演算をサポートし、加算、減算、乗算、除算、べき乗、クランプ、補間など、幅広い数学演算を提供します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeMathsOp.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeNoise",
+      "name": "Attribute Noise",
+      "overview": "Attribute Noiseノードは、属性またはプロパティにノイズを適用します。数値型とベクトル/ローテーター型をサポートし、ノイズの適用モードと範囲を選択できます。Density Noiseとして使用することもできます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeNoise.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributePartition",
+      "name": "Attribute Partition",
+      "overview": "Attribute Partitionノードは、選択された属性の値に基づいてデータを分割し、異なる値を持つポイントを別々の出力データに分けます。グループ化やカテゴリ分けに使用され、GPUでの実行もサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributePartition.md",
+      "tags": [
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeReduce",
+      "name": "Attribute Reduce",
+      "overview": "Attribute Reduceノードは、入力データのすべてのエントリ/ポイントから属性値を集約し、縮約演算（平均、最大、最小、合計、結合）を実行して、結果をParamDataとして出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeReduce.md",
+      "tags": [
+        "ポイント",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeRemap",
+      "name": "Attribute Remap",
+      "overview": "Attribute Remapノードは、属性値を指定された入力範囲から出力範囲に再マッピングします。Density Remapノードの後継として、任意の数値属性に対して範囲変換を行うことができます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeRemap.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeRemoveDuplicates",
+      "name": "Attribute Remove Duplicates",
+      "overview": "Attribute Remove Duplicatesノードは、指定された属性の値に基づいてデータから重複を削除します。同じ属性値の組み合わせを持つエントリから最初のものだけを保持し、残りを削除します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeRemoveDuplicates.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeRename",
+      "name": "Attribute Rename",
+      "overview": "Attribute Renameノードは、属性の名前を変更します。シンプルなノードで、既存の属性を新しい名前で参照できるようにします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeRename.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeRotatorOp",
+      "name": "Attribute Rotator Op",
+      "overview": "Attribute Rotator Opノードは、ローテーター（回転）属性に対して各種演算を実行します。回転の合成、反転、補間、正規化、およびトランスフォームによる回転変換をサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeRotatorOp.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeSelect",
+      "name": "Attribute Select",
+      "overview": "Attribute Selectノードは、入力データのすべてのエントリ/ポイントから指定された属性に対して選択演算（最小、最大、中央値）を実行し、選択された値とポイントをParamDataとして出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeSelect.md",
+      "tags": [
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeSetToPoint",
+      "name": "Attribute Set To Point",
+      "overview": "Attribute Set To Pointノードは、アトリビュートセット（Attribute Set）をポイントデータに変換するノードです。入力されたアトリビュートセットの各エントリーを、対応する属性を持つポイントとして出力します。",
+      "features": [
+        "アトリビュートセットの各エントリーをポイントデータに変換",
+        "各エントリーの属性情報を保持したままポイント化",
+        "空のアトリビュートセットに対する処理オプション"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeSetToPoint.md",
+      "tags": [
+        "ポイント",
+        "変換",
+        "属性セット",
+        "属性操作",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "AttributeStringOp",
+      "name": "Attribute String Op",
+      "overview": "Attribute String Opノードは、文字列属性に対して各種文字列操作を実行します。文字列の結合、置換、大文字/小文字変換、空白のトリミングをサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeStringOp.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeTransformOp",
+      "name": "Attribute Transform Op",
+      "overview": "Attribute Transform Opノードは、トランスフォーム属性に対して各種演算を実行します。トランスフォームの合成、反転、および3種類の補間モードをサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeTransformOp.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeTrigOp",
+      "name": "Attribute Trig Op",
+      "overview": "Attribute Trig Opノードは、数値属性に対して三角関数演算を実行します。基本的な三角関数（sin, cos, tan）、逆三角関数（asin, acos, atan, atan2）、および角度変換（度⇔ラジアン）をサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeTrigOp.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "AttributeVectorOp",
+      "name": "Attribute Vector Op",
+      "overview": "Attribute Vector Opノードは、ベクトル属性に対して各種ベクトル演算を実行します。外積、内積、距離、正規化、長さ、軸周り回転、およびトランスフォームによるベクトル変換をサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/AttributeVectorOp.md",
+      "tags": [
+        "変換",
+        "属性操作",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "Blur",
+      "name": "Blur",
+      "overview": "Blurノードは、ポイントの数値属性を近傍ポイントの値で平滑化（ブラー）するノードです。距離に基づく重み付けで複数回の反復処理が可能です。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Blur.md",
+      "tags": [
+        "ポイント",
+        "属性操作",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "BooleanOperation",
+      "name": "Boolean Operation",
+      "overview": "Boolean Operationノードは、ダイナミックメッシュ間でブーリアン演算（交差、結合、減算など）を実行するノードです。複数のメッシュを組み合わせて新しいジオメトリを生成できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/BooleanOperation.md",
+      "tags": [
+        "メッシュ処理",
+        "生成"
+      ]
+    },
+    {
+      "id": "BoundsFromMesh",
+      "name": "Bounds From Mesh",
+      "overview": "Bounds From Meshノードは、メッシュから取得したバウンディングボックス（境界ボックス）を使用して、ポイントのバウンド（範囲）を設定するノードです。指定されたスタティックメッシュの境界情報を各ポイントに適用します。",
+      "features": [
+        "入力ポイントデータの各ポイントに対して、指定された属性からメッシュを取得",
+        "取得したメッシュのバウンディングボックスを計算",
+        "各ポイントのバウンド（extents）をメッシュのバウンドで更新"
+      ],
+      "category": "Settings|Debug",
+      "nodeType": null,
+      "docPath": "../NodeDetails/BoundsFromMesh.md",
+      "tags": [
+        "デバッグ",
+        "ポイント",
+        "メッシュ処理"
+      ]
+    },
+    {
+      "id": "BoundsModifier",
+      "name": "Bounds Modifier",
+      "overview": "Bounds Modifierノードは、ポイントのバウンド（BoundsMin/BoundsMax）とSteepness（急峻度）を変更するノードです。5つのモードでバウンドを操作できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/BoundsModifier.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "BreakTransformAttribute",
+      "name": "Break Transform Attribute",
+      "overview": "Break Transform Attributeノードは、トランスフォーム属性を個別の成分（位置、回転、スケール）に分解します。FTransform型の属性を3つの個別のベクトル/ローテーター属性に分割する際に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/BreakTransformAttribute.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "BreakVectorAttribute",
+      "name": "Break Vector Attribute",
+      "overview": "Break Vector Attributeノードは、ベクトル属性を個別の成分（X、Y、Z、W）に分解します。Vector2、Vector、Vector4型の属性を個別のスカラー属性に分割する際に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/BreakVectorAttribute.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "CleanSpline",
+      "name": "Clean Spline",
+      "overview": "Clean Splineノードは、スプラインから不要な制御点を削除して、スプラインを最適化するノードです。共通位置にある制御点（co-located）や、直線上にある制御点（collinear）を削除します。",
+      "features": [
+        "同じ位置にある制御点の結合（fusion）",
+        "直線上の不要な制御点の削除",
+        "スプラインの形状を保ちながら制御点数を削減"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CleanSpline.md",
+      "tags": [
+        "スプライン"
+      ]
+    },
+    {
+      "id": "Cluster",
+      "name": "Cluster",
+      "overview": "Clusterノードは、ポイントを指定数のクラスタ（カテゴリ）にグループ化するノードです。K-MeansまたはEM（期待値最大化）アルゴリズムを使用して最適なクラスタリングを実行します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Cluster.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "CollapsePoints",
+      "name": "Collapse Points",
+      "overview": "Collapse Pointsノードは、近接するポイントを統合（デシメート）するノードです。距離閾値内のポイントを反復的にマージし、重み付き平均で新しいポイントを作成します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CollapsePoints.md",
+      "tags": [
+        "ポイント",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "CombinePoints",
+      "name": "Combine Points",
+      "overview": "Combine Pointsノードは、入力された複数のポイントを結合し、すべてのポイントの範囲を包含する単一のポイントを生成します。各入力ポイントセットに対して、すべてのポイントの境界を統合した1つのポイントが出力されます。",
+      "features": [
+        "すべてのポイントの境界ボックスを計算",
+        "統合された境界を持つ単一のポイントを生成",
+        "オプションで、ポイントの中心位置を調整",
+        "新しいポイントのトランスフォームを設定"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CombinePoints.md",
+      "tags": [
+        "ポイント",
+        "生成"
+      ]
+    },
+    {
+      "id": "CopyAttributes",
+      "name": "Copy Attributes",
+      "overview": "Copy Attributesノード（UPCGCopyAttributesSettings）は、ソースデータからターゲットデータに属性をコピーします。3つの異なるコピーモードをサポートし、柔軟な属性転送を実現します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/CopyAttributes.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "CopyAttributes_AttributeTransfer",
+      "name": "Copy Attributes (Attribute Transfer) - 非推奨",
+      "overview": "Copy Attributes (Attribute Transfer)ノードは、ソースデータからターゲットデータへ属性をコピーする非推奨のノードです。このノードはUnreal Engine 5.5で非推奨となり、`UPCGCopyAttributesSettings`を使用するように変更されました。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Metadata",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CopyAttributes_AttributeTransfer.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "CopyAttributes_MetadataOperation",
+      "name": "Copy Attributes (Metadata Operation) - 非推奨",
+      "overview": "Copy Attributes (Metadata Operation)ノードは、メタデータ操作として属性をコピーする非推奨のノードです。このノードはUnreal Engine 5.5で非推奨となり、`UPCGCopyAttributesSettings`を使用するように変更されました。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Metadata",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CopyAttributes_MetadataOperation.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "CopyPoints",
+      "name": "Copy Points",
+      "overview": "ノードタイプ: Sampler クラス: UPCGCopyPointsSettings エレメント: FPCGCopyPointsElement",
+      "features": [
+        "ソースポイントをターゲットポイントの位置にコピー",
+        "相対的、ソース、ターゲットの3つの継承モードによる柔軟な属性制御",
+        "カルテシアン積（N×M）または1対1（N:N）のコピーモード",
+        "GPU実行サポート",
+        "条件付きコピー（属性マッチング）のサポート（実験的機能）"
+      ],
+      "category": "Sampler",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CopyPoints.md",
+      "tags": [
+        "サンプリング",
+        "ポイント"
+      ]
+    },
+    {
+      "id": "CreateCollisionData",
+      "name": "Create Collision Data",
+      "overview": "Create Collision Dataノードは、メッシュからコリジョンデータを作成し、PCGで使用可能な形式でラップするノードです。スタティックメッシュのコリジョン形状を取得し、空間クエリに使用できるデータに変換します。",
+      "features": [
+        "指定された属性からスタティックメッシュを取得",
+        "メッシュのコリジョン形状（Simple/Complex）を抽出",
+        "PCGCollisionWrapperDataとして出力"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreateCollisionData.md",
+      "tags": [
+        "コリジョン",
+        "メッシュ処理",
+        "変換",
+        "生成"
+      ]
+    },
+    {
+      "id": "CreateConstant",
+      "name": "Create Constant",
+      "overview": "Create Constantノード（別名: Create Attribute）は、定数値を持つ新しいアトリビュートセット（Attribute Set）を作成するノードです。入力ピンを必要とせず、指定した型と値を持つアトリビュートセットを直接生成します。",
+      "features": [
+        "定数アトリビュートセットの生成: 指定した型と値を持つアトリビュートセットを新規作成",
+        "豊富な型サポート: PCGメタデータで利用可能なすべての型をサポート",
+        "事前設定テンプレート: 各データ型に応じた事前設定テンプレートから素早く作成可能",
+        "グラフパラメータへの変換: Create Constantノードをグラフパラメータノードに変換可能"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreateConstant.md",
+      "tags": [
+        "属性セット",
+        "生成"
+      ]
+    },
+    {
+      "id": "CreateEmptyDynamicMesh",
+      "name": "Create Empty Dynamic Mesh",
+      "overview": "Create Empty Dynamic Meshノードは、空のダイナミックメッシュデータを作成するノードです。他のダイナミックメッシュ処理の開始点として、またはカスタムメッシュ構築のベースとして使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreateEmptyDynamicMesh.md",
+      "tags": [
+        "メッシュ処理",
+        "生成"
+      ]
+    },
+    {
+      "id": "CreatePoints",
+      "name": "Create Points",
+      "overview": "Create Pointsノードは、指定されたリストからポイントデータを作成するノードです。直接ポイントのリストを定義し、それをPCGで使用可能なポイントデータとして出力します。",
+      "features": [
+        "設定で定義されたポイントのリストを読み込み",
+        "指定された座標空間（ワールドまたはローカル）でポイントデータを生成",
+        "オプションで、ボリューム外のポイントをカリング"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreatePoints.md",
+      "tags": [
+        "生成",
+        "ポイント"
+      ]
+    },
+    {
+      "id": "CreatePointsGrid",
+      "name": "Create Points Grid",
+      "overview": "Create Points Gridノードは、2Dまたは3Dグリッド状のポイントを自動生成するノードです。指定された範囲とセルサイズに基づいて、規則的に配置されたポイントセットを作成します。",
+      "features": [
+        "指定された範囲（GridExtents）内にグリッド状のポイントを生成",
+        "セルサイズに基づいてポイント間隔を決定",
+        "ポイント位置をセルの中心または角に配置"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreatePointsGrid.md",
+      "tags": [
+        "ポイント",
+        "生成",
+        "配置"
+      ]
+    },
+    {
+      "id": "CreatePointsSphere",
+      "name": "Create Points Sphere",
+      "overview": "Create Points Sphereノードは、球面上にポイントを生成するノードです。複数の生成方法（測地線、角度ベース、ランダムなど）をサポートし、球状のパターンを作成します。",
+      "features": [
+        "指定された原点と半径を中心とした球面上にポイントを生成",
+        "複数の生成アルゴリズム（Geodesic、Angle、Segments、Random、Poisson）をサポート",
+        "ポイントの向き（法線方向、中心方向、なし）を制御"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreatePointsSphere.md",
+      "tags": [
+        "ポイント",
+        "ランダム",
+        "生成"
+      ]
+    },
+    {
+      "id": "CreateSpline",
+      "name": "Create Spline",
+      "overview": "Create Splineノードは、入力ポイントデータからスプラインを作成するノードです。ポイントの位置を制御点として、カスタムタンジェント付きのスプラインを生成できます。",
+      "features": [
+        "入力ポイントの位置からスプライン制御点を作成",
+        "スプラインデータのみまたはアクターコンポーネントとして生成",
+        "オプションでカスタムタンジェントを適用",
+        "閉じたループスプラインの作成をサポート"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreateSpline.md",
+      "tags": [
+        "スプライン",
+        "ポイント",
+        "生成"
+      ]
+    },
+    {
+      "id": "CreateSurfaceFromSpline",
+      "name": "Create Surface From Spline",
+      "overview": "Create Surface From Splineノードは、閉じたスプラインから2D投影による暗黙的なサーフェスを作成します。各スプラインは上から見た2D投影によって内部領域を定義し、その領域をサーフェスデータとして出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CreateSurfaceFromSpline.md",
+      "tags": [
+        "サーフェス",
+        "スプライン",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "CreateTargetActor",
+      "name": "Create Target Actor",
+      "overview": "Create Target Actorノードは、PCG生成時に使用するターゲットアクターを動的に作成します。このアクターは、スポーンされたメッシュやコンポーネントのコンテナとして機能し、データレイヤーやHLOD設定を含む高度なワールドパーティション設定をサポートします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Spawner",
+      "docPath": "../NodeDetails/CreateTargetActor.md",
+      "tags": [
+        "メッシュ処理",
+        "生成"
+      ]
+    },
+    {
+      "id": "CullPointsOutsideActorBounds",
+      "name": "Cull Points Outside Actor Bounds",
+      "overview": "Cull Points Outside Actor Boundsノードは、現在のアクター境界の外にあるポイントを削除します。オプションで境界を拡張することができ、OrderedモードとUnorderedモードの2つの処理モードをサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CullPointsOutsideActorBounds.md",
+      "tags": [
+        "ポイント",
+        "空間演算",
+        "間引き"
+      ]
+    },
+    {
+      "id": "CustomHLSL",
+      "name": "Custom HLSL",
+      "overview": "Custom HLSLノードは、カスタムHLSLコンピュートシェーダーをGPU上で実行できる実験的なノードです。ユーザーが記述したHLSLコードを使用して、PCGデータをGPUで高速に処理できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/CustomHLSL.md",
+      "tags": []
+    },
+    {
+      "id": "DataAttributesToTags",
+      "name": "Data Attributes To Tags",
+      "overview": "Data Attributes To Tagsノードは、PCGデータのData Domain属性をタグに変換するノードです。属性名と値をキー:バリュー形式のタグとして出力し、データのフィルタリングや分類に利用できます。",
+      "features": [
+        "属性からタグへの変換: Data Domain属性の値をタグとして出力",
+        "選択的マッピング: 特定の属性のみをタグに変換可能",
+        "カスタム名前付け: タグ名を@Sourceキーワードで元の属性名から変更可能",
+        "型フィルタリング: 解析不可能な型（Quaternionなど）の処理を制御",
+        "値の省略: 属性名のみのタグ生成オプション"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DataAttributesToTags.md",
+      "tags": [
+        "タグ操作",
+        "フィルタ",
+        "変換",
+        "属性操作",
+        "汎用"
+      ]
+    },
+    {
+      "id": "DataCount",
+      "name": "Data Count",
+      "overview": "Data Countノードは、入力データコレクション内のデータ数をカウントし、その結果を属性として出力するノードです。入力ピンに接続されたデータの総数を取得するシンプルなユーティリティノードです。",
+      "features": [
+        "データ数のカウント: 入力データコレクション内のデータ数を取得",
+        "Param Data出力: カウント結果を属性として含むParamDataを出力",
+        "GPU実行サポート: GPU上での実行に対応",
+        "カスタム属性名: 出力属性名をカスタマイズ可能"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DataCount.md",
+      "tags": [
+        "属性操作",
+        "汎用"
+      ]
+    },
+    {
+      "id": "DataTableRowToAttributeSet",
+      "name": "Data Table Row To Attribute Set",
+      "overview": "Data Table Row To Attribute Setノードは、Unreal EngineのDataTableアセットから特定の行を読み込み、その行のすべての列データをPCGアトリビュートセット(Param Data)として出力するノードです。DataTableの構造化されたデータをPCGシステムで利用可能な形式に変換します。",
+      "features": [
+        "DataTableの非同期/同期ロード: 指定されたDataTableアセットをロードします(デフォルトは非同期)",
+        "行の取得: RowNameで指定された行をDataTableから検索します",
+        "属性の自動生成: 行内のすべてのプロパティを自動的にPCGメタデータの属性として作成します",
+        "型変換: DataTableの各フィールドタイプをPCGでサポートされている型に変換します",
+        "ParamDataの出力: すべての属性を含むParamDataとして出力します"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DataTableRowToAttributeSet.md",
+      "tags": [
+        "変換",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "DataTagsToAttributeSet",
+      "name": "Data Tags To Attribute Set",
+      "overview": "Data Tags To Attribute Setノードは、データコレクションに付与されたタグをアトリビュートセットに変換するノードです。Get Actor Dataノードのシングルポイントオプションと同様の動作を行い、各入力データのタグ情報をアトリビュートセットとして抽出します。",
+      "features": [
+        "データタグのアトリビュートセット化: 入力データに付与されたタグをアトリビュートとして抽出",
+        "値付きタグのサポート: TagName:Value形式のタグから、タグ名と値を分離して抽出",
+        "入力データごとの処理: 各入力データに対して個別のアトリビュートセットを生成"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DataTagsToAttributeSet.md",
+      "tags": [
+        "タグ操作",
+        "ポイント",
+        "変換",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "Debug",
+      "name": "Debug",
+      "overview": "Debugノードは、PCGグラフの実行中にデバッグ情報を可視化します。入力データをビューポートに表示し、データの構造と内容を視覚的に確認できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Debug",
+      "docPath": "../NodeDetails/Debug.md",
+      "tags": [
+        "デバッグ"
+      ]
+    },
+    {
+      "id": "DeleteAttributes",
+      "name": "Delete Attributes",
+      "overview": "Delete Attributesノードは、入力データのメタデータから属性を削除します。選択した属性のみを保持するか、選択した属性のみを削除するかを選択できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/DeleteAttributes.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "DeleteTags",
+      "name": "Delete Tags",
+      "overview": "Delete Tagsノードは、PCGデータのタグをフィルタリングするノードです。指定されたタグを削除する、または指定されたタグのみを保持する、2つのモードで動作し、文字列マッチング演算子も選択できます。",
+      "features": [
+        "2つの操作モード: 選択タグの削除または保持",
+        "3つのマッチング演算子: 完全一致、部分一致、ワイルドカード",
+        "一括フィルタリング: 複数のタグを同時に処理",
+        "動的ピン対応: すべての入力ピンのデータを処理"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DeleteTags.md",
+      "tags": [
+        "タグ操作",
+        "フィルタ",
+        "汎用"
+      ]
+    },
+    {
+      "id": "DensityFilter",
+      "name": "Density Filter",
+      "overview": "Density Filterノードは、ポイントの密度(Density)値に基づいてポイントをフィルタリングするノードです。指定された範囲内の密度を持つポイントのみを通過させるか、逆にその範囲外のポイントのみを通過させることができます。",
+      "features": [
+        "入力ポイントデータの各ポイントの密度値を確認",
+        "密度値が指定された範囲内(LowerBound ≤ Density ≤ UpperBound)にあるかチェック",
+        "条件を満たすポイントのみを出力ポイントデータに含める",
+        "bInvertFilterがtrueの場合、条件を反転（範囲外のポイントを出力）"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DensityFilter.md",
+      "tags": [
+        "フィルタ",
+        "密度調整",
+        "ポイント",
+        "並列処理"
+      ]
+    },
+    {
+      "id": "DensityRemap",
+      "name": "Density Remap",
+      "overview": "⚠️ 非推奨（Deprecated）: このノードはバージョン5.5で非推奨となりました。代わりに`UPCGAttributeRemapSettings`（Attribute Remapノード）を使用してください。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Density（非推奨）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DensityRemap.md",
+      "tags": [
+        "密度調整"
+      ]
+    },
+    {
+      "id": "Difference",
+      "name": "Difference",
+      "overview": "Differenceノードは、ソースデータから差分データを引き算する空間演算を実行します。複数の差分データをソースから除外し、結果として重なっていない領域のみを保持します。密度の再計算やメタデータの差分処理もサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Difference.md",
+      "tags": [
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "Distance",
+      "name": "Distance",
+      "overview": "Distanceノードは、2つのポイントセット間の距離を計算します（N×N演算）。距離をスカラー値またはベクトルとして属性に出力でき、オプションで密度を距離に基づいて設定することもできます。最大距離を指定することで最適化が可能です。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Distance.md",
+      "tags": [
+        "空間演算",
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "DuplicateCrossSections",
+      "name": "Duplicate Cross-Sections",
+      "overview": "Duplicate Cross-Sectionsノードは、入力スプラインの断面を指定されたベクトル方向に複製（押し出し）します。スプラインの断面形状を保持したまま、3D空間で複数のコピーを生成します。Grammarサブシステムの一部です。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial (Grammar)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DuplicateCrossSections.md",
+      "tags": [
+        "スプライン",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "DuplicatePoint",
+      "name": "Duplicate Point",
+      "overview": "Duplicate Pointノードは、各入力ポイントの複製を作成し、オプションでトランスフォームオフセットを適用します。ポイントを指定回数複製し、方向に沿って配置したり、カスタムトランスフォームを適用したりできます。",
+      "features": [
+        "相対空間モード (bDirectionAppliedInRelativeSpace = true): 各ポイントのローカル空間で方向が適用され、複製が相対的に配置されます",
+        "ワールド空間モード (bDirectionAppliedInRelativeSpace = false): 複製がワールド空間で配置され、トランスフォームが累積的に適用されます"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DuplicatePoint.md",
+      "tags": [
+        "ポイント",
+        "配置"
+      ]
+    },
+    {
+      "id": "DynamicMeshTransform",
+      "name": "Dynamic Mesh Transform",
+      "overview": "Dynamic Mesh Transformノードは、すべてのダイナミックメッシュに変換（Transform）を適用するノードです。メッシュの位置、回転、スケールを変更できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/DynamicMeshTransform.md",
+      "tags": [
+        "メッシュ処理",
+        "変換"
+      ]
+    },
+    {
+      "id": "ElevationIsolines",
+      "name": "Elevation Isolines",
+      "overview": "Elevation Isolinesノードは、サーフェスの標高等高線（Isolines）を計算します。指定された標高範囲と間隔で等高線を生成し、ポイントまたはスプラインとして出力できます。現在はZ-Up（Z軸が上）のサーフェスのみをサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ElevationIsolines.md",
+      "tags": [
+        "サーフェス",
+        "スプライン",
+        "ポイント",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "ExecuteBlueprint",
+      "name": "Execute Blueprint",
+      "overview": "Execute Blueprintノードは、カスタムBlueprint Elementを実行してPCGグラフ内でBlueprint（BP）ロジックを統合します。PCGBlueprintElementクラスを継承したBlueprintを指定し、そのロジックをPCGパイプラインで実行できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Blueprint",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ExecuteBlueprint.md",
+      "tags": []
+    },
+    {
+      "id": "ExportSelectedAttributes",
+      "name": "Export Selected Attributes",
+      "overview": "Export Selected Attributesノードは、PCGデータから選択した属性やプロパティを指定したフォーマット(バイナリまたはJSON)でファイルにエクスポートするノードです。デバッグ、データ分析、外部ツールとの連携に使用できます。",
+      "features": [
+        "属性の選択: 入力データから指定された属性/プロパティを選択",
+        "フォーマット選択: Binary(バイナリ)またはJSON形式でエクスポート",
+        "レイアウト選択: JSONの場合、要素ごと(ByElement)または属性ごと(ByAttribute)のレイアウトを選択",
+        "ファイル出力: 指定されたディレクトリとファイル名でデータを保存",
+        "カスタムバージョニング: オプションでカスタムバージョン情報を含めることが可能"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ExportSelectedAttributes.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "ExtentsModifier",
+      "name": "Extents Modifier",
+      "overview": "Extents Modifierノードは、ポイントの範囲（Extents）を変更するノードです。ポイントの境界ボックスのサイズを設定、最小化、最大化、加算、乗算することができます。ポイントの位置や回転は変更せず、範囲のみを調整します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ExtentsModifier.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "FilterAttributeElements",
+      "name": "Filter Attribute Elements",
+      "overview": "Filter Attribute Elementsノードは、属性値やプロパティに基づいて要素（ポイントや属性セット）をフィルタリングするノードです。\"A op B\" 形式の比較を行い、条件を満たす要素を出力します。",
+      "features": [
+        "入力データの属性またはプロパティを指定された演算子で比較",
+        "定数値、他のデータの属性、またはプロパティとの比較が可能",
+        "Spatial DataまたはAttribute Setの要素をフィルタリング",
+        "条件を満たす要素と満たさない要素を別々のピンに出力"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterAttributeElements.md",
+      "tags": [
+        "フィルタ",
+        "ポイント",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "FilterAttributeElementsByRange",
+      "name": "Filter Attribute Elements by Range",
+      "overview": "Filter Attribute Elements by Rangeノードは、属性値やプロパティが指定された範囲内にあるかどうかで要素（ポイントや属性セット）をフィルタリングするノードです。最小値と最大値の2つの閾値を使用して範囲を定義し、条件を満たす要素を出力します。",
+      "features": [
+        "入力データの属性またはプロパティを指定された範囲と比較",
+        "最小値と最大値の定義に定数値、他のデータの属性、またはプロパティを使用可能",
+        "Spatial DataまたはAttribute Setの要素をフィルタリング",
+        "範囲の境界値を含む/含まないを個別に設定可能"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterAttributeElementsByRange.md",
+      "tags": [
+        "フィルタ",
+        "ポイント",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "FilterDataByAttribute",
+      "name": "Filter Data By Attribute",
+      "overview": "Filter Data By Attributeノードは、データが特定の属性を持っているか、または属性値が条件を満たすかどうかでデータコレクション全体をフィルタリングするノードです。属性の存在チェック、値の比較、範囲チェックの3つのモードを持ちます。",
+      "features": [
+        "入力データコレクションを属性の存在、値、または値の範囲でフィルタリング",
+        "3つのフィルタモード: 存在チェック、値比較、範囲チェック",
+        "データ全体をフィルタ（個別の要素ではなく、データ自体を振り分け）",
+        "ポイントデータ、属性セット、その他のデータ型に対応"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterDataByAttribute.md",
+      "tags": [
+        "フィルタ",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "FilterDataByIndex",
+      "name": "Filter Data By Index",
+      "overview": "Filter Data By Indexノードは、ユーザー定義のインデックス範囲表現に基づいてデータコレクションをフィルタリングするノードです。個別のインデックスや範囲を指定して、データコレクションから特定の要素を選択または除外できます。",
+      "features": [
+        "インデックス範囲表現を使用したデータコレクションのフィルタリング",
+        "個別のインデックスや範囲を柔軟に指定可能",
+        "負のインデックスをサポート（配列の末尾からのカウント）",
+        "フィルタの反転機能（選択と除外の切り替え）",
+        "データ全体をフィルタ（個別の要素ではなく、データ自体を振り分け）"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterDataByIndex.md",
+      "tags": [
+        "フィルタ"
+      ]
+    },
+    {
+      "id": "FilterDataByTag",
+      "name": "Filter Data By Tag",
+      "overview": "Filter Data By Tagノードは、タグ条件に基づいてデータコレクションをフィルタリングするノードです。指定されたタグを持つデータを保持または削除することができ、複数のタグをカンマ区切りで指定可能です。",
+      "features": [
+        "タグ条件に基づくデータコレクションのフィルタリング",
+        "タグ付きデータの保持または削除",
+        "複数のタグ指定（カンマ区切り）",
+        "文字列マッチング演算子のサポート（完全一致、部分一致、正規表現）",
+        "データ全体をフィルタ（個別の要素ではなく、データ自体を振り分け）"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterDataByTag.md",
+      "tags": [
+        "タグ操作",
+        "フィルタ"
+      ]
+    },
+    {
+      "id": "FilterDataByType",
+      "name": "Filter Data By Type",
+      "overview": "Filter Data By Typeノードは、データ型に基づいて入力コレクションをフィルタリングするノードです。指定されたデータ型にマッチするデータを選択し、異なる出力ピンに振り分けます。コンパクトな表示モードをサポートし、視覚的にシンプルなノードとして使用できます。",
+      "features": [
+        "データ型に基づくコレクションのフィルタリング",
+        "複数のデータ型を同時に指定可能（ビットマスク）",
+        "型にマッチするデータとマッチしないデータを別々に出力",
+        "コンパクトな表示モードでワークフローを簡潔に保つ",
+        "実行依存ピンなし（データフローのみに依存）"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterDataByType.md",
+      "tags": [
+        "フィルタ"
+      ]
+    },
+    {
+      "id": "FilterElementsByIndex",
+      "name": "Filter Elements By Index",
+      "overview": "Filter Elements By Indexノードは、インデックスに基づいてポイントや属性セットの個別要素をフィルタリングするノードです。2つの入力モードを持ち、別の入力からインデックスを取得するか、ユーザー定義のインデックス範囲表現を使用してフィルタリングできます。",
+      "features": [
+        "ポイントデータまたは属性セットの個別要素をインデックスでフィルタリング",
+        "2つの入力モード: 入力データからインデックスを取得 / ユーザー定義範囲表現を使用",
+        "負のインデックスをサポート（配列の末尾からのカウント）",
+        "フィルタの反転機能（選択と除外の切り替え）",
+        "破棄された要素を別のピンに出力するオプション"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/FilterElementsByIndex.md",
+      "tags": [
+        "フィルタ",
+        "ポイント",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "FindConvexHull2D",
+      "name": "Find Convex Hull 2D",
+      "overview": "Find Convex Hull 2Dノードは、XY平面上のポイントセットの2D凸包（Convex Hull）を計算します。入力ポイントを囲む最小の凸多角形のポイントを返します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/FindConvexHull2D.md",
+      "tags": [
+        "ポイント",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "Gather",
+      "name": "Gather",
+      "overview": "Gatherノードは、複数の入力ワイヤーを1つの出力ワイヤーにまとめる組織化目的のノードです。複数のデータソースを単一のコレクションに集約し、依存関係専用ピンを通じて実行順序を制御することもできます。",
+      "features": [
+        "データ集約: 複数の入力ピンからのデータを単一の出力コレクションに統合",
+        "動的ピン: 必要に応じて入力ピンを追加可能",
+        "実行順序制御: 依存関係専用ピンを使用した実行フローの管理",
+        "タグ管理: 入力データのタグを適切に出力に反映",
+        "GPU対応: GPU常駐データとベースポイントデータ入力をサポート"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Gather.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "GenerateGrassMaps",
+      "name": "Generate Grass Maps",
+      "overview": "Generate Grass Mapsノードは、ランドスケープの草マップをGPU上で生成するノードです。ランドスケープコンポーネントから草タイプデータを抽出し、テクスチャデータとして出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GenerateGrassMaps.md",
+      "tags": [
+        "生成"
+      ]
+    },
+    {
+      "id": "GenerateSeed",
+      "name": "Generate Seed",
+      "overview": "Generate Seedノードは、ランダムストリーム、定数文字列、またはソース属性からシード値を生成します。決定論的なランダム性を提供し、再現可能な結果を得るために使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/GenerateSeed.md",
+      "tags": [
+        "ランダム",
+        "属性操作",
+        "生成"
+      ]
+    },
+    {
+      "id": "GetActorDataLayers",
+      "name": "Get Actor Data Layers",
+      "overview": "Get Actor Data Layersノードは、アクターのデータレイヤーを取得して属性として出力するノードです。World Partitionのデータレイヤーシステムと統合して動作します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Default",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetActorDataLayers.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetActorProperty",
+      "name": "Get Actor Property",
+      "overview": "Get Actor Propertyノードは、アクターまたはアクターコンポーネントのプロパティ値を抽出し、アトリビュートセット（Param Data）として出力するノードです。動的なデータ取得と、変更の追跡（Dynamic Tracking）をサポートします。",
+      "features": [
+        "アクタープロパティの抽出: 指定したアクターのプロパティ値をアトリビュートセットとして取得",
+        "コンポーネントプロパティの抽出: アクターに付随するコンポーネントのプロパティを取得",
+        "動的追跡: アクタープロパティの変更を追跡し、自動的に再実行",
+        "複数プロパティの抽出: カンマ区切りで複数のプロパティを同時に抽出可能",
+        "構造体/オブジェクトの展開: 構造体やオブジェクト型のプロパティ内のサブプロパティを自動展開"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetActorProperty.md",
+      "tags": []
+    },
+    {
+      "id": "GetAttributeFromPointIndex",
+      "name": "Get Attribute From Point Index",
+      "overview": "Get Attribute From Point Indexノードは、指定されたインデックスのポイントから属性またはプロパティの値を取得し、パラメータデータとして出力するノードです。同時に、指定されたインデックスのポイント自体も別の出力ピンから出力されます。",
+      "features": [
+        "入力ポイントデータから指定されたインデックスのポイントを特定",
+        "そのポイントから指定された属性/プロパティの値を抽出",
+        "抽出した値をパラメータデータとして\"Attribute\"ピンに出力",
+        "指定されたインデックスのポイント自体を\"Point\"ピンに出力"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetAttributeFromPointIndex.md",
+      "tags": [
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetAttributeList",
+      "name": "Get Attribute List",
+      "overview": "Get Attribute Listノードは、入力データのメタデータに含まれるすべてのアトリビュート名をリストとして抽出し、アトリビュートセットとして出力するノードです。各アトリビュート名が1つのエントリとなり、オプションで型情報やデフォルト値も取得できます。",
+      "features": [
+        "アトリビュート名の抽出: 入力データの全アトリビュート名を取得",
+        "型情報の取得: オプションで各アトリビュートの型を取得",
+        "デフォルト値の取得: オプションで各アトリビュートのデフォルト値を文字列として取得"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetAttributeList.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetAttributeSetFromIndex",
+      "name": "Get Attribute Set from Index",
+      "overview": "Get Attribute Set from Indexノードは、アトリビュートセットから指定したインデックスの単一エントリを抽出し、新しいアトリビュートセットとして出力するノードです。",
+      "features": [
+        "インデックスベースの抽出: 指定したインデックスのエントリを取得",
+        "属性の保持: すべてのアトリビュート定義を保持しつつ、値のみを抽出"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetAttributeSetFromIndex.md",
+      "tags": [
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetConsoleVariable",
+      "name": "Get Console Variable",
+      "overview": "Get Console Variableノードは、指定されたコンソール変数（CVar）の値を読み取り、その値をアトリビュートセットに書き込みます。このノードは、実行時の設定やデバッグパラメータに基づいてPCGグラフの動作を動的に制御するために使用されます。",
+      "features": [
+        "コンソール変数の読み取り: 指定された名前のコンソール変数を検索して値を取得",
+        "型自動検出: Bool、Int、Float、String型のコンソール変数を自動的に識別",
+        "アトリビュートセット出力: 読み取った値をパラメータデータとして出力",
+        "エラーハンドリング: 変数が見つからない場合や型がサポートされていない場合のエラー報告"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetConsoleVariable.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "GetEntriesCount",
+      "name": "Get Entries Count (Get Tags / Get Attribute List) ノード群",
+      "overview": "このドキュメントは、PCGデータからメタ情報を抽出する関連ノードについて説明します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Param",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetEntriesCount.md",
+      "tags": [
+        "タグ操作",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetExecutionContextInfo",
+      "name": "Get Execution Context Info",
+      "overview": "Get Execution Context Infoノードは、PCGグラフの実行コンテキストに関する情報（エディタ実行か、ランタイム実行か、パーティション化されているかなど）を取得し、boolean値としてアトリビュートセットに出力します。このノードを使用することで、実行環境に応じた条件分岐や動作の変更が可能になります。",
+      "features": [
+        "エディタ/ランタイム判定: エディタ環境か実行時環境かを判別",
+        "オリジナル/ローカル判定: パーティション化の状態を確認",
+        "パーティション化判定: コンポーネントがパーティション化されているかを確認",
+        "ランタイム生成判定: ランタイム生成モードかを判別",
+        "サーバー判定: デディケイテッドサーバー上で実行されているかを確認"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetExecutionContextInfo.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "GetGraphParameter",
+      "name": "Get Graph Parameter",
+      "overview": "Get Graph Parameterノードは、PCGグラフで定義されたユーザーパラメータの値を取得するノードです。グラフインスタンスから指定されたパラメータの値を読み取り、属性セットとして出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetGraphParameter.md",
+      "tags": [
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetGraphParameter_Generic",
+      "name": "Get Graph Parameter (Generic)",
+      "overview": "Get Graph Parameter (Generic)ノードは、PCGグラフで定義されたユーザーパラメータを手動で指定して取得できる汎用的なパラメータ取得ノードです。Get Actor PropertyやGet Property From Object Pathと同様に、パラメータパスと抽出設定を手動で構成できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetGraphParameter_Generic.md",
+      "tags": []
+    },
+    {
+      "id": "GetLoopIndex",
+      "name": "Get Loop Index",
+      "overview": "Get Loop Indexノードは、現在実行中のループ内でのイテレーションインデックスを取得します。Loopノード内でサブグラフが実行されている場合に、そのループの現在の反復回数を整数値として出力します。",
+      "features": [
+        "ループインデックス取得: 実行スタック内の最も近いループのインデックスを取得",
+        "警告機能: ループ外で呼び出された場合に警告を表示（オプション）",
+        "整数出力: ループインデックスを整数型のアトリビュートとして出力",
+        "スタック解析: 実行スタックを解析して適切なループフレームを特定"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetLoopIndex.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "GetPropertyFromObjectPath",
+      "name": "Get Property From Object Path",
+      "overview": "Get Property From Object Pathノードは、オブジェクトパス（FSoftObjectPath）のリストからオブジェクトをロードし、そのプロパティ値を抽出してアトリビュートセットとして出力するノードです。非同期ロードをサポートし、エディタ外のアセットにも動的にアクセスできます。",
+      "features": [
+        "オブジェクトパスからのロード: FSoftObjectPath形式でオブジェクトを指定してロード",
+        "プロパティ抽出: ロードしたオブジェクトのプロパティ値を抽出",
+        "非同期ロード: デフォルトで非同期ロード、オプションで同期ロードも可能",
+        "動的追跡: エディタビルドでオブジェクト変更を追跡",
+        "静的パスと動的パス: 固定パスリストまたは入力からのパス取得を選択可能"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetPropertyFromObjectPath.md",
+      "tags": []
+    },
+    {
+      "id": "GetResourcePath",
+      "name": "Get Resource Path",
+      "overview": "Get Resource Pathノードは、リソースデータをリソースパスを含む属性セットに変換するノードです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetResourcePath.md",
+      "tags": [
+        "変換",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "GetStaticMeshResourceData",
+      "name": "Get Static Mesh Resource Data",
+      "overview": "Get Static Mesh Resource Dataノードは、指定されたソフトオブジェクトパスからスタティックメッシュリソースデータを作成するノードです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetStaticMeshResourceData.md",
+      "tags": [
+        "メッシュ処理"
+      ]
+    },
+    {
+      "id": "GetSubgraphDepth",
+      "name": "Get Subgraph Depth",
+      "overview": "Get Subgraph Depthノードは、実行スタック内での現在のグラフの呼び出し深度または再帰深度を取得します。サブグラフのネストレベルや再帰的な呼び出しの深さを把握し、深度に応じた処理制御が可能になります。",
+      "features": [
+        "深度測定: トップレベルグラフからの相対的な深度を測定",
+        "再帰深度測定: 同じグラフが実行スタック内に何回出現するかを測定",
+        "上流グラフ指定: 任意の上流グラフからの相対深度を測定可能",
+        "整数出力: 深度を整数型アトリビュートとして出力"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetSubgraphDepth.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "GetTags",
+      "name": "Get Tags",
+      "overview": "Get Tagsノードは、入力データに付与されたタグを抽出し、アトリビュートセットとして出力するノードです。各タグが1つのエントリとなり、オプションで値付きタグ（`Tag:Value`形式）の値も抽出できます。",
+      "features": [
+        "タグリストの抽出: 入力データのすべてのタグをアトリビュートセットとして取得",
+        "値付きタグのサポート: Tag:Value形式のタグから値を抽出（オプション）",
+        "複数入力対応: 複数の入力データに対して個別のアトリビュートセットを生成"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/GetTags.md",
+      "tags": [
+        "タグ操作",
+        "属性セット"
+      ]
+    },
+    {
+      "id": "HashAttribute",
+      "name": "Hash Attribute",
+      "overview": "Hash Attributeノードは、属性をハッシュ化して32ビット符号なし整数に変換します。結果は64ビット符号付き整数として表現されます。一意のID生成や値の高速比較に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/HashAttribute.md",
+      "tags": [
+        "変換",
+        "属性操作",
+        "生成"
+      ]
+    },
+    {
+      "id": "InnerIntersection",
+      "name": "Inner Intersection",
+      "overview": "Inner Intersectionノードは、すべての入力データの内部交差（完全に重なる領域）を計算します。すべての入力が重なっている領域のみを出力し、密度の再計算もサポートしています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/InnerIntersection.md",
+      "tags": [
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "InputOutputNode",
+      "name": "Input Node / Output Node",
+      "overview": "Input NodeとOutput Nodeは、PCGサブグラフのインターフェースを定義する特別なノードです。これらのノードは、サブグラフとメイングラフまたは他のサブグラフとの間でデータをやり取りするための入出力ポイントを提供します。",
+      "features": [
+        "パススルー処理: 入力データをそのまま出力にコピー",
+        "カスタムピンの定義: 複数のカスタムピンを追加可能",
+        "ピンのプロパティ管理: 各ピンのデータタイプ、必須/任意などを設定",
+        "GPU対応: GPUレジデントデータのサポート",
+        "非キャッシュ: 実行結果はキャッシュされません"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/InputOutputNode.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "InstancedSkinnedMeshSpawner",
+      "name": "Instanced Skinned Mesh Spawner",
+      "overview": "Instanced Skinned Mesh Spawnerノードは、入力ポイントデータに基づいてスキンメッシュ（AnimBankを使用）のインスタンスを効率的にスポーンします。アニメーション付きメッシュを大量に配置する際に、通常のSkeletal Meshよりも高いパフォーマンスを実現します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "MeshSelector",
+      "nodeType": "Spawner",
+      "docPath": "../NodeDetails/InstancedSkinnedMeshSpawner.md",
+      "tags": [
+        "ポイント",
+        "メッシュ処理",
+        "配置"
+      ]
+    },
+    {
+      "id": "Intersection",
+      "name": "Intersection (Outer Intersection)",
+      "overview": "Intersectionノード（正式名: Outer Intersection）は、Primary入力とSecondary入力の交差領域を計算します。複数のSecondary入力は暗黙的に結合（Union）されてからPrimary入力と比較されます。動的入力ピンをサポートし、空の入力を無視するオプションも提供します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Intersection.md",
+      "tags": [
+        "空間演算"
+      ]
+    },
+    {
+      "id": "LoadAlembic",
+      "name": "Load Alembic",
+      "overview": "Load Alembicノードは、Alembic(.abc)ファイルからジオメトリデータをロードし、PCGポイントデータとして変換するノードです。Alembic形式は、複雑なジオメトリやアニメーションデータの交換に広く使用される業界標準フォーマットです。このノードを使用することで、HoudiniやMayaなどの外部DCCツールで作成されたデータをUnreal EngineのPCGシステムで利...",
+      "features": [
+        "Alembicファイルの読み込み: 指定されたAlembicファイルからデータをロード",
+        "座標系変換: スケール、回転、ハンドネス(右手/左手座標系)の変換を適用",
+        "属性マッピング: Alembicの属性をPCGの属性/プロパティにマッピング",
+        "ポイントデータ生成: 変換されたデータをPCGポイントデータとして出力",
+        "標準設定のサポート: City Sampleなどの事前定義された設定を適用可能"
+      ],
+      "category": "Alembic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/LoadAlembic.md",
+      "tags": [
+        "ポイント",
+        "変換"
+      ]
+    },
+    {
+      "id": "LoadDataTable",
+      "name": "Load Data Table",
+      "overview": "Load Data Tableノードは、Unreal EngineのDataTableアセット全体を読み込み、各行をPCGのポイントデータまたはパラメータデータ(Param Data)に変換するノードです。DataTableの構造化されたデータをPCGシステムで大量に利用する場合に最適です。",
+      "features": [
+        "DataTableの非同期/同期ロード: 指定されたDataTableアセットをロードします",
+        "行構造の検証: DataTableのRowStructを確認し、有効性をチェック",
+        "出力形式の選択: PointDataまたはParamDataとして出力",
+        "属性マッピング: DataTableのフィールドをPCGプロパティ/属性にマッピング",
+        "アクセサの作成: 各フィールドに対して読み書き用のアクセサを作成"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/LoadDataTable.md",
+      "tags": [
+        "ポイント",
+        "変換",
+        "属性セット"
+      ]
+    },
+    {
+      "id": "LoadPCGDataAsset",
+      "name": "Load PCG Data Asset",
+      "overview": "Load PCG Data Assetノードは、PCGデータアセット(UPCGDataAsset)をロードし、その中に保存されているデータコレクションをPCGグラフで使用可能にするノードです。このノードを使用することで、事前に生成・保存されたPCGデータを再利用したり、複数のグラフ間でデータを共有したりできます。",
+      "features": [
+        "データアセットのロード: 指定されたPCGデータアセットを非同期/同期でロード",
+        "動的ピンの更新: アセット内のデータに基づいて出力ピンを自動生成",
+        "入力からのロード: オプションで入力ピンから動的にアセット参照を取得",
+        "デフォルト値のオーバーライド: 属性のデフォルト値を入力またはTag:Value形式で上書き",
+        "タグ付けとインデックス: 出力データに追加のタグやインデックスを付与"
+      ],
+      "category": "Data",
+      "nodeType": null,
+      "docPath": "../NodeDetails/LoadPCGDataAsset.md",
+      "tags": [
+        "属性セット",
+        "生成"
+      ]
+    },
+    {
+      "id": "Loop",
+      "name": "Loop",
+      "overview": "Loopノードは、サブグラフを繰り返し実行し、各イテレーションで入力データの一部を処理します。フィードバックループをサポートし、前回の結果を次のイテレーションの入力として使用できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Data",
+      "nodeType": "Subgraph（動的）",
+      "docPath": "../NodeDetails/Loop.md",
+      "tags": []
+    },
+    {
+      "id": "MakeConcrete",
+      "name": "Make Concrete",
+      "overview": "Make Concreteノードは、データを具体的（Concrete）にし、必要に応じてポイントに変換します。暗黙的なデータ型（Surface、Volumeなど）を明示的なポイントデータに変換し、非空間データは破棄されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/MakeConcrete.md",
+      "tags": [
+        "ポイント",
+        "変換",
+        "属性セット",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "MakeRotatorAttribute",
+      "name": "Make Rotator Attribute",
+      "overview": "Make Rotator Attributeノードは、1つ、2つ、または3つの軸ベクトル、あるいはオイラー角からローテーター（回転）を作成します。複数の構築方法をサポートし、柔軟な回転の生成を可能にします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/MakeRotatorAttribute.md",
+      "tags": [
+        "属性操作",
+        "生成"
+      ]
+    },
+    {
+      "id": "MakeTransformAttribute",
+      "name": "Make Transform Attribute",
+      "overview": "Make Transform Attributeノードは、位置（Translation）、回転（Rotation）、スケール（Scale）の3つの成分からトランスフォーム属性を構築します。Break Transform Attributeの逆操作を行います。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/MakeTransformAttribute.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "MakeVectorAttribute",
+      "name": "Make Vector Attribute",
+      "overview": "Make Vector Attributeノードは、個別のスカラー値または小さいベクトルから、Vector2、Vector、Vector4型の属性を構築します。柔軟な構築オプションをサポートします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/MakeVectorAttribute.md",
+      "tags": [
+        "属性操作"
+      ]
+    },
+    {
+      "id": "MatchAndSetAttributes",
+      "name": "Match And Set Attributes",
+      "overview": "Match And Set Attributesノードは、提供された属性セットから一致するエントリを見つけ、そのエントリの属性を ポイントにコピーします。マッチング、重み付き選択、または両方の組み合わせが可能です。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/MatchAndSetAttributes.md",
+      "tags": [
+        "ポイント",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "MergeAttributes",
+      "name": "Merge Attributes",
+      "overview": "Merge Attributesノードは、複数の属性セットを単一の属性セットにマージします。複数の入力ピンを持ち、すべての属性を統合した結果を出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/MergeAttributes.md",
+      "tags": [
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "MergeDynamicMeshes",
+      "name": "Merge Dynamic Meshes",
+      "overview": "Merge Dynamic Meshesノードは、すべての入力ダイナミックメッシュを順番に最初のメッシュに追加し、1つのメッシュに結合するノードです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/MergeDynamicMeshes.md",
+      "tags": [
+        "メッシュ処理"
+      ]
+    },
+    {
+      "id": "NamedRerouteDeclaration",
+      "name": "Named Reroute Declaration",
+      "overview": "Named Reroute Declarationノードは、名前付きリルートの宣言点を定義するノードです。このノードで宣言された名前付きリルートは、グラフ内の他の場所にある Named Reroute Usage ノードから参照できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/NamedRerouteDeclaration.md",
+      "tags": []
+    },
+    {
+      "id": "NamedRerouteUsage",
+      "name": "Named Reroute Usage",
+      "overview": "Named Reroute Usageノードは、名前付きリルート宣言（Named Reroute Declaration）ノードで定義されたデータを参照するノードです。グラフ内の離れた場所にあるデータソースから、配線なしでデータを取得できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/NamedRerouteUsage.md",
+      "tags": []
+    },
+    {
+      "id": "ParseString",
+      "name": "Parse String",
+      "overview": "Parse Stringノードは、文字列を数値に変換します。文字列属性から整数、浮動小数点数、その他の数値型を抽出する際に使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/ParseString.md",
+      "tags": [
+        "変換",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "PartitionByActorDataLayers",
+      "name": "Partition by Actor Data Layers",
+      "overview": "Partition by Actor Data Layersノードは、アクターのデータレイヤーに基づいてポイントデータを分割するノードです。各データレイヤーごとに個別の出力を生成します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/PartitionByActorDataLayers.md",
+      "tags": [
+        "ポイント",
+        "生成"
+      ]
+    },
+    {
+      "id": "Pathfinding",
+      "name": "Pathfinding",
+      "overview": "Pathfindingノードは、ポイントクラウド上でA*アルゴリズムを使用して最適なパスを見つけます。開始位置とゴール位置を指定し、ポイント間の最大ジャンプ距離内で到達可能なパスを計算します。部分的なパスの出力も可能で、スプラインまたはポイントデータとして結果を返します。",
+      "features": [
+        "A*パス探索: 効率的なヒューリスティック探索アルゴリズム",
+        "柔軟な入力: 単一またはアトリビュートからの開始/ゴール位置",
+        "コスト関数: 距離、フィットネス、コスト乗数の3モード",
+        "レイキャスト統合: パス上の障害物検出",
+        "部分パス: ゴールに到達できない場合の部分パスを許可"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Pathfinding.md",
+      "tags": [
+        "スプライン",
+        "ポイント",
+        "汎用",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "PointMatchAndSet",
+      "name": "Point Match And Set",
+      "overview": "Point Match And Setノードは、ポイントデータに対して「Match and Set」操作を適用します。ポイントが指定されたMatch & Setオブジェクトの条件と一致する場合、ポイントに値を設定します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/PointMatchAndSet.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "PointToAttributeSet",
+      "name": "Point To Attribute Set",
+      "overview": "Point To Attribute Setノードは、ポイントデータをアトリビュートセットに変換するノードです。各ポイントが1つのエントリとなり、ポイントのすべてのアトリビュート（メタデータ）が保持されます。",
+      "features": [
+        "ポイントデータの変換: ポイントデータをアトリビュートセットに変換",
+        "アトリビュート保持: すべてのポイントアトリビュートを保持",
+        "効率的なコピー: メタデータの効率的なコピー機構を使用",
+        "CRC最適化: 完全なCRC計算でキャッシュ効率を向上"
+      ],
+      "category": "Param（パラメータ）",
+      "nodeType": null,
+      "docPath": "../NodeDetails/PointToAttributeSet.md",
+      "tags": [
+        "ポイント",
+        "変換",
+        "属性セット",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "PrintGrammar",
+      "name": "Print Grammar",
+      "overview": "Print Grammarノードは、グラマー（文法）を解釈し、その結果を出力します。L-SystemやPCG Grammarシステムと統合されており、生成的な文字列処理を実行できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Debug",
+      "docPath": "../NodeDetails/PrintGrammar.md",
+      "tags": [
+        "デバッグ",
+        "生成"
+      ]
+    },
+    {
+      "id": "PrintString",
+      "name": "Print String",
+      "overview": "Print Stringノードは、指定されたメッセージをログ、グラフ、および/または画面に出力します。PCGグラフのデバッグと情報表示に使用される重要なツールです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Debug",
+      "docPath": "../NodeDetails/PrintString.md",
+      "tags": [
+        "デバッグ"
+      ]
+    },
+    {
+      "id": "Proxy_Indirection",
+      "name": "Proxy (Indirection)",
+      "overview": "Proxy (Indirection)ノードは、別の設定オブジェクトを動的に実行する間接実行ノードです。ネイティブエレメント、ブループリントエレメント、または任意の設定オブジェクトを指定でき、そのピン構成を継承して実行時に処理を切り替えることができます。",
+      "features": [
+        "動的実行: 実行時に別の設定オブジェクトを実行",
+        "ピン継承: 指定された設定のピン構成を継承",
+        "オーバーライド: 設定をオーバーライドパラメータで上書き可能",
+        "3つのモード: ネイティブエレメント、ブループリントエレメント、カスタム設定",
+        "動的トラッキング: 依存関係の動的な追跡をサポート"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Proxy_Indirection.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "RandomChoice",
+      "name": "Random Choice",
+      "overview": "Random Choiceノードは、ランダムにエントリを選択するノードです。固定数または割合でエントリを選択でき、選択されたエントリと破棄されたエントリは入力データと同じ順序で出力されます。",
+      "features": [
+        "固定数または割合でランダムにエントリを選択",
+        "シード値を使用した再現可能なランダム選択",
+        "カスタムシードソース属性のサポート",
+        "選択されたエントリと破棄されたエントリを別々のピンに出力",
+        "入力データの順序を保持"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/RandomChoice.md",
+      "tags": [
+        "フィルタ",
+        "間引き",
+        "ポイント",
+        "ランダム"
+      ]
+    },
+    {
+      "id": "RemoveEmptyData",
+      "name": "Remove Empty Data",
+      "overview": "Remove Empty Dataノードは、入力ピン内の空のデータをすべて削除するノードです。データが空かどうかは、データのインデックスキーが存在するか、またはキーの数がゼロでないかで判定されます。",
+      "features": [
+        "入力コレクション内の空のデータを検出して削除",
+        "データのインデックスキーの存在と数に基づいて判定",
+        "空でないデータのみを出力ピンに転送",
+        "すべてのデータ型に対応（Any型）"
+      ],
+      "category": "Filter",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/RemoveEmptyData.md",
+      "tags": [
+        "フィルタ",
+        "属性セット"
+      ]
+    },
+    {
+      "id": "ReplaceTags",
+      "name": "Replace Tags",
+      "overview": "Replace Tagsノードは、PCGデータの既存のタグを新しいタグに置き換えるノードです。1:1、N:1、N:Nのマッピングをサポートし、タグの名前変更や統合に使用できます。",
+      "features": [
+        "タグの置換: 既存タグを新しいタグに置き換え",
+        "複数マッピングモード: 1:1、N:1、N:Nマッピング対応",
+        "タグの削除: 置換先が空の場合は削除",
+        "動的ピン対応: すべての入力ピンのデータを処理"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ReplaceTags.md",
+      "tags": [
+        "タグ操作",
+        "汎用"
+      ]
+    },
+    {
+      "id": "Reroute",
+      "name": "Reroute",
+      "overview": "Rerouteノードは、PCGグラフの接続を視覚的に整理するための基本的なリルートノードです。データをそのまま通過させ、グラフエディタでの配線を見やすくするために使用されます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/Reroute.md",
+      "tags": []
+    },
+    {
+      "id": "RerouteNamedBase",
+      "name": "Reroute (Named Base)",
+      "overview": "Reroute (Named Base)は、名前付きリルートノード（Named Reroute Declaration と Named Reroute Usage）の基底クラスです。このクラス自体は直接使用されませんが、名前付きリルート機能の共通実装を提供します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/RerouteNamedBase.md",
+      "tags": []
+    },
+    {
+      "id": "ResetPointCenter",
+      "name": "Reset Point Center",
+      "overview": "Reset Point Centerノードは、ポイントの境界ボックス内での位置を変更し、境界ボックス自体は変更しないノードです。ポイントのピボット位置を境界の中心、端、または任意の位置に再配置できます。",
+      "features": [
+        "ポイントの位置は境界ボックスの「ピボット」点として機能します",
+        "正規化された座標系で位置を指定します（0.0 = 最小、0.5 = 中央、1.0 = 最大）",
+        "境界ボックスは常にワールド空間で定義されます"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ResetPointCenter.md",
+      "tags": [
+        "ポイント",
+        "配置"
+      ]
+    },
+    {
+      "id": "RuntimeQualityBranch",
+      "name": "Runtime Quality Branch",
+      "overview": "Runtime Quality Branchノードは、`pcg.Quality`コンソール変数の設定に基づいて入力データを動的に異なる出力ピンにルーティングする制御フローノードです。ランタイム時の品質レベルに応じて、異なる処理パスを選択できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/RuntimeQualityBranch.md",
+      "tags": []
+    },
+    {
+      "id": "RuntimeQualitySelect",
+      "name": "Runtime Quality Select",
+      "overview": "Runtime Quality Selectノードは、`pcg.Quality`コンソール変数の設定に基づいて、複数の入力ピンから1つを選択して出力する制御フローノードです。ランタイム時の品質レベルに応じて、異なる入力データを選択できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/RuntimeQualitySelect.md",
+      "tags": []
+    },
+    {
+      "id": "SampleTexture",
+      "name": "Sample Texture",
+      "overview": "ノードタイプ: Sampler クラス: UPCGSampleTextureSettings エレメント: FPCGSampleTextureElement",
+      "features": [
+        "テクスチャデータからの色サンプリング",
+        "平面投影またはUV座標によるマッピング",
+        "密度への自動適用",
+        "タイリングモード（Wrap/Clamp）のカスタマイズ",
+        "メインスレッド実行による安全性"
+      ],
+      "category": "Sampler",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SampleTexture.md",
+      "tags": [
+        "サンプリング"
+      ]
+    },
+    {
+      "id": "SanityCheckPointData",
+      "name": "Sanity Check Point Data",
+      "overview": "Sanity Check Point Dataノードは、ポイントデータの整合性を検証します。ポイント数が指定された範囲内にあるかをチェックし、範囲外の場合は警告またはエラーを出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Debug",
+      "docPath": "../NodeDetails/SanityCheckPointData.md",
+      "tags": [
+        "デバッグ",
+        "ポイント"
+      ]
+    },
+    {
+      "id": "SaveDynamicMeshToAsset",
+      "name": "Save Dynamic Mesh To Asset",
+      "overview": "Save Dynamic Mesh To Assetノードは、ダイナミックメッシュデータをスタティックメッシュアセットとして保存するノードです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SaveDynamicMeshToAsset.md",
+      "tags": [
+        "メッシュ処理"
+      ]
+    },
+    {
+      "id": "SavePCGDataAsset",
+      "name": "Save PCG Data Asset",
+      "overview": "Save PCG Data Assetノードは、PCGグラフで生成されたデータをPCGデータアセット(.uasset)としてディスクに保存するノードです。このノードを使用することで、計算コストの高い処理結果をアセットとして保存し、後で再利用したり、他のプロジェクトやチームメンバーと共有したりできます。",
+      "features": [
+        "入力データの収集: 指定されたピンからデータを収集",
+        "データコレクションの作成: 収集したデータをFPCGDataCollectionにパッケージング",
+        "アセットのエクスポート: カスタムエクスポーターを使用してデータをアセット化",
+        "メタデータの保存: アセットの説明と色情報を保存(エディタのみ)",
+        "ファイルの作成/更新: 新規作成または既存アセットの更新"
+      ],
+      "category": "Data",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SavePCGDataAsset.md",
+      "tags": [
+        "生成"
+      ]
+    },
+    {
+      "id": "SelectGrammar",
+      "name": "Select Grammar",
+      "overview": "Select Grammarノードは、入力アトリビュートの値と提供された条件セットを順次比較し、条件に一致するグラマー（文字列）を選択してポイントデータに出力します。グラマーベースのプロシージャル生成システムで、サイズや他のアトリビュートに基づいてグラマールールを動的に選択する際に使用されます。",
+      "features": [
+        "条件付き選択: 複数の条件を順次評価してグラマーを選択",
+        "柔軟な比較: <、<=、==、>=、>、範囲条件をサポート",
+        "アトリビュート入力: 比較値をポイントアトリビュートから取得",
+        "条件セット入力: 条件をパラメータデータとして外部から提供可能",
+        "デフォルト処理: 条件に一致しない場合のキー値コピー機能"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SelectGrammar.md",
+      "tags": [
+        "ポイント",
+        "汎用",
+        "生成"
+      ]
+    },
+    {
+      "id": "SelectPoints",
+      "name": "Select Points",
+      "overview": "ノードタイプ: Sampler クラス: UPCGSelectPointsSettings エレメント: FPCGSelectPointsElement",
+      "features": [
+        "比率ベースのポイント選択（0-1の範囲）",
+        "シードベースの決定論的ランダム選択",
+        "高速な処理",
+        "デバッグモードで密度ゼロのポイントを保持可能"
+      ],
+      "category": "Settings|Debug",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SelectPoints.md",
+      "tags": [
+        "デバッグ",
+        "ポイント"
+      ]
+    },
+    {
+      "id": "Select_BooleanSelect",
+      "name": "Select (Boolean Select)",
+      "overview": "Boolean Selectノードは、ブール値の条件（`bUseInputB`）に基づいて、2つの入力ピンのいずれかを選択して出力する制御フローノードです。シンプルな二者択一の選択を行います。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/Select_BooleanSelect.md",
+      "tags": []
+    },
+    {
+      "id": "Select_Branch",
+      "name": "Select (Multi) - Branch",
+      "overview": "Select (Multi) - Branchは、`Select (Multi)`ノードの概念的なバリエーションで、条件分岐のような動作を提供します。実装上は`UPCGMultiSelectSettings`と同じノードですが、複数の入力から1つを選択する「Branch」スタイルの使い方を強調しています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/Select_Branch.md",
+      "tags": []
+    },
+    {
+      "id": "Select_MultiSelect",
+      "name": "Select (Multi)",
+      "overview": "Select (Multi)ノードは、静的な選択基準（整数、文字列、または列挙型）に基づいて、任意の数の入力ピンから1つを選択して出力する制御フローノードです。複数の選択肢から動的に1つを選ぶことができます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/Select_MultiSelect.md",
+      "tags": []
+    },
+    {
+      "id": "Select_Switch",
+      "name": "Select (Multi) - Switch",
+      "overview": "Select (Multi) - Switchは、`Select (Multi)`ノードの概念的なバリエーションで、プログラミングのSwitch-Case文のような動作を提供します。実装上は`UPCGMultiSelectSettings`と同じノードですが、Switch文スタイルの使い方を強調しています。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": null,
+      "nodeType": null,
+      "docPath": "../NodeDetails/Select_Switch.md",
+      "tags": []
+    },
+    {
+      "id": "SelfPruning",
+      "name": "Self Pruning",
+      "overview": "Self Pruningノードは、ポイント同士が重なっている場合に、指定された戦略に基づいてポイントを削除する（プルーニングする）ノードです。大小に基づく削除、重複削除など、複数のプルーニングタイプをサポートし、コリジョンベースの高度な重なり判定も可能です。",
+      "features": [
+        "ポイント同士の重なりを検出してプルーニング",
+        "5つのプルーニングタイプ: LargeToSmall、SmallToLarge、AllEqual、None、RemoveDuplicates",
+        "エクステント（範囲）またはカスタム属性に基づく比較",
+        "ランダマイズされたプルーニングによる予測不可能性の追加",
+        "コリジョンベースの重なり判定（メッシュの実際の形状を考慮）"
+      ],
+      "category": "Settings",
+      "nodeType": "Filter",
+      "docPath": "../NodeDetails/SelfPruning.md",
+      "tags": [
+        "フィルタ",
+        "間引き",
+        "ポイント",
+        "空間演算",
+        "コリジョン",
+        "タイムスライス"
+      ]
+    },
+    {
+      "id": "SortAttributes",
+      "name": "Sort Attributes",
+      "overview": "Sort Attributesノードは、指定されたアトリビュートの値に基づいてデータ（ポイントまたはメタデータエントリ）をソートします。昇順または降順でのソートが可能で、ポイントデータとアトリビュートセットの両方に対応しています。",
+      "features": [
+        "アトリビュートベースソート: 任意のアトリビュートの値でソート",
+        "昇順/降順: ソート順序の選択可能",
+        "型対応: 比較可能な型（数値、文字列など）をサポート",
+        "ポイントデータ: ポイントの順序を変更",
+        "メタデータ: メタデータエントリの順序を変更"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SortAttributes.md",
+      "tags": [
+        "ポイント",
+        "属性操作",
+        "汎用"
+      ]
+    },
+    {
+      "id": "SortDataByTagValue",
+      "name": "Sort Data By Tag Value",
+      "overview": "Sort Data By Tag Valueノードは、データコレクション内の各データに付与されたタグの値（\"Tag:Value\"形式）に基づいて、データ全体をソートします。タグ値は文字列または数値として解釈され、指定されたタグを持たないデータは最後に配置されます。",
+      "features": [
+        "タグ値ソート: \"Tag:Value\"形式のタグの値でデータをソート",
+        "数値/文字列対応: 値を数値または文字列として比較",
+        "昇順/降順: ソート順序の選択可能",
+        "安定ソート: 同じ値の要素の相対順序を保持",
+        "タグなしデータの処理: タグを持たないデータは末尾に配置"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SortDataByTagValue.md",
+      "tags": [
+        "タグ操作",
+        "汎用",
+        "配置"
+      ]
+    },
+    {
+      "id": "SpawnActor",
+      "name": "Spawn Actor",
+      "overview": "Spawn Actorノードは、Spawn Instanced Actorsノードと同じ実装を使用します。詳細については、[SpawnInstancedActors.md](SpawnInstancedActors.md)を参照してください。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spawner（内部的にはSubgraphとして動作）",
+      "nodeType": "Spawner（内部的にはSubgraphとして動作）",
+      "docPath": "../NodeDetails/SpawnActor.md",
+      "tags": [
+        "配置"
+      ]
+    },
+    {
+      "id": "SpawnDynamicMesh",
+      "name": "Spawn Dynamic Mesh",
+      "overview": "Spawn Dynamic Meshノードは、各ダイナミックメッシュデータに対してダイナミックメッシュコンポーネントをスポーンするノードです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SpawnDynamicMesh.md",
+      "tags": [
+        "メッシュ処理",
+        "配置"
+      ]
+    },
+    {
+      "id": "SpawnInstancedActors",
+      "name": "Spawn Instanced Actors",
+      "overview": "Spawn Instanced Actorsノードは、入力ポイントデータに基づいてアクターをスポーンします。Static Mesh SpawnerやInstanced Skinned Mesh Spawnerとは異なり、このノードは完全なアクターインスタンスを作成します。Spawn Actorノードの別名であり、実際には同じ実装を使用します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Spawner（内部的にはSubgraphとして動作）",
+      "docPath": "../NodeDetails/SpawnInstancedActors.md",
+      "tags": [
+        "ポイント",
+        "配置"
+      ]
+    },
+    {
+      "id": "SpawnSplineComponent",
+      "name": "Spawn Spline Component",
+      "overview": "Spawn Spline Componentノードは、スプラインデータからスプラインコンポーネントを生成します。入力スプラインの形状を維持したまま、実際のUSplineComponentをワールドに配置します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Spawner",
+      "docPath": "../NodeDetails/SpawnSplineComponent.md",
+      "tags": [
+        "スプライン",
+        "生成",
+        "配置"
+      ]
+    },
+    {
+      "id": "SpawnSplineMesh",
+      "name": "Spawn Spline Mesh",
+      "overview": "Spawn Spline Meshノードは、スプラインの各セグメントに沿ってUSplineMeshComponentを生成します。道路、パイプ、柵、ケーブルなど、スプラインに沿って変形するメッシュの配置に最適です。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Spawner",
+      "docPath": "../NodeDetails/SpawnSplineMesh.md",
+      "tags": [
+        "スプライン",
+        "メッシュ処理",
+        "生成",
+        "配置"
+      ]
+    },
+    {
+      "id": "SplineSampler",
+      "name": "Spline Sampler",
+      "overview": "ノードタイプ: Sampler クラス: UPCGSplineSamplerSettings エレメント: FPCGSplineSamplerElement",
+      "features": [
+        "5つのサンプリング次元（OnSpline、OnHorizontal、OnVertical、OnVolume、OnInterior）",
+        "3つのサンプリングモード（Subdivision、Distance、NumberOfSamples）",
+        "豊富な属性計算（方向デルタ、曲率、セグメントインデックス、タンジェント、Alpha、距離など）",
+        "内部領域のポイント密度フォールオフカーブ",
+        "バウンディングシェイプによる制限"
+      ],
+      "category": "Settings|Points",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SplineSampler.md",
+      "tags": [
+        "サンプリング",
+        "スプライン"
+      ]
+    },
+    {
+      "id": "SplineToMesh",
+      "name": "Spline To Mesh",
+      "overview": "Spline To Meshノードは、スプラインデータをダイナミックメッシュに変換するノードです。スプラインカーブを三角形分割してメッシュジオメトリを生成します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spline",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SplineToMesh.md",
+      "tags": [
+        "スプライン",
+        "メッシュ処理",
+        "変換",
+        "生成"
+      ]
+    },
+    {
+      "id": "SplitPoints",
+      "name": "Split Points",
+      "overview": "Split Pointsノードは、各入力ポイントを指定された軸と位置で2つの別々のポイントに分割します。分割された各ポイントは、分割平面に基づいて調整された境界を持ちます。",
+      "features": [
+        "Before Split: 分割平面の前（最小側）の部分",
+        "After Split: 分割平面の後（最大側）の部分"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SplitPoints.md",
+      "tags": [
+        "ポイント"
+      ]
+    },
+    {
+      "id": "StaticMeshSpawner",
+      "name": "Static Mesh Spawner",
+      "overview": "Static Mesh Spawnerノードは、入力ポイントデータに基づいてスタティックメッシュインスタンスを効率的にスポーンします。Instanced Static Mesh Component (ISMC) または Hierarchical Instanced Static Mesh Component (HISMC) を使用して、大量のメッシュを高パフォーマンスで描画します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "MeshSelector",
+      "nodeType": "Spawner",
+      "docPath": "../NodeDetails/StaticMeshSpawner.md",
+      "tags": [
+        "ポイント",
+        "メッシュ処理",
+        "配置"
+      ]
+    },
+    {
+      "id": "StaticMeshToDynamicMeshElement",
+      "name": "Static Mesh To Dynamic Mesh Element",
+      "overview": "Static Mesh To Dynamic Mesh Elementノードは、スタティックメッシュをダイナミックメッシュデータに変換するノードです。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/StaticMeshToDynamicMeshElement.md",
+      "tags": [
+        "メッシュ処理",
+        "変換"
+      ]
+    },
+    {
+      "id": "SubdivideSegment",
+      "name": "Subdivide Segment",
+      "overview": "Subdivide Segmentノードは、セグメント（ポイント間の線分）を指定された軸に沿って分割します。Grammarシステムを使用してモジュールベースの分割を行い、各モジュールの位置を示すポイントを生成します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial (Grammar)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SubdivideSegment.md",
+      "tags": [
+        "ポイント",
+        "生成",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "SubdivideSpline",
+      "name": "Subdivide Spline",
+      "overview": "Subdivide Splineノードは、スプラインを指定されたモジュール高さに基づいて分割します。Grammarシステムを使用してスプラインに沿ってモジュールを配置し、各モジュールの位置を示すポイントを生成します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Advanced Display",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SubdivideSpline.md",
+      "tags": [
+        "スプライン",
+        "ポイント",
+        "生成",
+        "配置"
+      ]
+    },
+    {
+      "id": "Subgraph",
+      "name": "Subgraph",
+      "overview": "Subgraphノードは、別のPCGグラフを現在のグラフ内で実行します。グラフの再利用性とモジュール性を高め、複雑なPCGシステムを構造化された方法で構築できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Properties",
+      "nodeType": "Subgraph",
+      "docPath": "../NodeDetails/Subgraph.md",
+      "tags": []
+    },
+    {
+      "id": "SurfaceSampler",
+      "name": "Surface Sampler",
+      "overview": "ノードタイプ: Sampler クラス: UPCGSurfaceSamplerSettings エレメント: FPCGSurfaceSamplerElement",
+      "features": [
+        "平方メートルあたりのポイント数による密度制御",
+        "ポイントサイズ（Extents）のカスタマイズ",
+        "Loosenessによる配置のランダム性制御",
+        "サーフェス密度の自動適用",
+        "タイムスライシングによる大規模データの処理"
+      ],
+      "category": "Settings|Points",
+      "nodeType": null,
+      "docPath": "../NodeDetails/SurfaceSampler.md",
+      "tags": [
+        "サンプリング",
+        "サーフェス"
+      ]
+    },
+    {
+      "id": "TagsToDataAttributes",
+      "name": "Tags To Data Attributes",
+      "overview": "Tags To Data Attributesノードは、PCGデータのタグを解析してData Domain属性に変換するノードです。`Key:Value`形式のタグから属性を自動生成し、データに構造化された情報を付加します。",
+      "features": [
+        "タグから属性への変換: Key:Value形式のタグを解析して属性化",
+        "自動型推論: タグ値から適切な属性型を自動判定",
+        "選択的マッピング: 特定のタグのみを属性に変換可能",
+        "Data Domain管理: 属性をData Domainに自動追加"
+      ],
+      "category": "Generic",
+      "nodeType": null,
+      "docPath": "../NodeDetails/TagsToDataAttributes.md",
+      "tags": [
+        "タグ操作",
+        "変換",
+        "属性操作",
+        "汎用",
+        "生成"
+      ]
+    },
+    {
+      "id": "ToPoint",
+      "name": "To Point",
+      "overview": "To Pointノード（内部名: Collapse）は、入力をポイントデータに変換します。必要に応じてデフォルト設定でサンプリングを実行し、あらゆる型のデータを統一されたポイントデータとして出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/ToPoint.md",
+      "tags": [
+        "サンプリング",
+        "ポイント",
+        "変換",
+        "属性セット",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "TransformPoints",
+      "name": "Transform Points",
+      "overview": "Transform Pointsノードは、ポイントのトランスフォーム（位置、回転、スケール）にランダムまたは固定のオフセットを適用するノードです。ポイント自体のトランスフォームまたは属性のトランスフォーム値を変更でき、多様性のある配置や手続き的な変形に使用できます。",
+      "features": [
+        "ポイントトランスフォームモード (bApplyToAttribute = false): ポイント自体のトランスフォームを変更",
+        "属性モード (bApplyToAttribute = true): メタデータ属性のトランスフォーム値を変更"
+      ],
+      "category": "Point Ops",
+      "nodeType": null,
+      "docPath": "../NodeDetails/TransformPoints.md",
+      "tags": [
+        "ポイント",
+        "ランダム",
+        "変換",
+        "属性操作",
+        "配置"
+      ]
+    },
+    {
+      "id": "UObject_HiGenGridSize",
+      "name": "U Object (HiGen Grid Size)",
+      "overview": "U Object (HiGen Grid Size)ノードは、下流のノードの実行グリッドサイズを設定するノードです。階層的生成（Hierarchical Generation）を有効にし、単一のグラフを複数のグリッド階層で実行できるようにします。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": null,
+      "docPath": "../NodeDetails/UObject_HiGenGridSize.md",
+      "tags": [
+        "生成"
+      ]
+    },
+    {
+      "id": "Union",
+      "name": "Union",
+      "overview": "Unionノードは、複数の空間データを結合して和集合を作成します。動的入力ピンをサポートし、入力の順序が尊重されます。密度関数とユニオンタイプを選択して、重なる領域の処理方法を制御できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Union.md",
+      "tags": [
+        "密度調整",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "VisualizeAttribute",
+      "name": "Visualize Attribute",
+      "overview": "Visualize Attributeノードは、選択された属性の値を各ポイントのトランスフォーム位置に3Dテキストとして表示します。属性値をビジュアルに確認し、デバッグを支援します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Settings",
+      "nodeType": "Debug",
+      "docPath": "../NodeDetails/VisualizeAttribute.md",
+      "tags": [
+        "デバッグ",
+        "ポイント",
+        "属性操作"
+      ]
+    },
+    {
+      "id": "VolumeSampler",
+      "name": "Volume Sampler",
+      "overview": "ノードタイプ: Sampler クラス: UPCGVolumeSamplerSettings エレメント: FPCGVolumeSamplerElement",
+      "features": [
+        "ボクセルサイズによる3Dグリッド制御",
+        "ボリュームの密度情報の自動適用",
+        "タイムスライシングによる大規模データの処理",
+        "バウンディングシェイプによる範囲制限",
+        "ポイントSteepnessによる密度関数の調整"
+      ],
+      "category": "Data",
+      "nodeType": null,
+      "docPath": "../NodeDetails/VolumeSampler.md",
+      "tags": [
+        "サンプリング",
+        "ボリューム"
+      ]
+    },
+    {
+      "id": "Wait",
+      "name": "Wait",
+      "overview": "Waitノードは、指定された時間やフレーム数だけ待機してから入力データを出力に転送します。デバッグやタイミング制御に使用できますが、本番環境での使用は特別なケース以外では推奨されません。",
+      "features": [
+        "時間待機: 秒単位での待機",
+        "エンジンフレーム待機: ゲームスレッドフレーム数での待機",
+        "レンダーフレーム待機: レンダースレッドフレーム数での待機",
+        "複合条件: AND/OR条件で複数の待機条件を組み合わせ可能",
+        "非ブロッキング: 他のタスクの実行を妨げない待機"
+      ],
+      "category": "Generic (汎用) / ControlFlow (制御フロー)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/Wait.md",
+      "tags": [
+        "制御",
+        "汎用"
+      ]
+    },
+    {
+      "id": "WaitUntilLandscapeIsReady",
+      "name": "Wait Until Landscape Is Ready",
+      "overview": "Wait Until Landscape Is Readyノードは、シーン内のすべてのランドスケープの更新が完了するまで待機し、完了後にデータを下流に転送します。ランドスケープデータに依存する処理を確実に実行するために使用されます。",
+      "features": [
+        "ランドスケープ検出: シーン内のすべてのランドスケープを自動検出",
+        "準備完了待機: 各ランドスケープの IsUpToDate() をチェック",
+        "非ブロッキング: 他のタスクをブロックせずに待機",
+        "データ転送: ランドスケープ準備完了後、入力データを出力に転送",
+        "キャンセル対応: 中断された場合の適切な処理"
+      ],
+      "category": "Generic (汎用)",
+      "nodeType": null,
+      "docPath": "../NodeDetails/WaitUntilLandscapeIsReady.md",
+      "tags": [
+        "汎用"
+      ]
+    },
+    {
+      "id": "WorldRayHitQuery",
+      "name": "World Ray Hit Query",
+      "overview": "World Ray Hit Queryノードは、入力ポイントからワールドに対してレイキャスト（線分トレース）またはスイープ（形状トレース）を実行します。ヒットした位置、法線、アクター、マテリアルなどの情報を取得し、属性として出力できます。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/WorldRayHitQuery.md",
+      "tags": [
+        "ポイント",
+        "属性操作",
+        "空間演算"
+      ]
+    },
+    {
+      "id": "WorldVolumetricQuery",
+      "name": "World Volumetric Query",
+      "overview": "World Volumetric Queryノードは、入力ポイントの位置でワールドに対してボリュメトリッククエリ（Overlap検出）を実行します。指定された形状と重なるアクターやコンポーネントを検出し、フィルタリングして結果を出力します。",
+      "features": [
+        "機能情報なし"
+      ],
+      "category": "Spatial",
+      "nodeType": null,
+      "docPath": "../NodeDetails/WorldVolumetricQuery.md",
+      "tags": [
+        "フィルタ",
+        "ボリューム",
+        "ポイント",
+        "空間演算"
+      ]
+    }
+  ],
+  "generatedAt": "2025-10-08T17:22:40.897128",
+  "totalNodes": 192
+}

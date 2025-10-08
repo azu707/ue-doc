@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCGノード一覧</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>🎨 PCGノード一覧</h1>
+            <p class="subtitle">Unreal Engine Procedural Content Generation ノードリファレンス</p>
+        </div>
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-box" placeholder="🔍 ノード名で検索...">
+                <button id="clearSearch" class="clear-search-button" style="display: none;">✕</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="filter-panel">
+                <div class="filter-header">
+                    <h2>🏷️ タグで絞り込み</h2>
+                    <button id="clearFilters" class="clear-button">クリア</button>
+                </div>
+
+                <div class="filter-mode">
+                    <label class="filter-mode-label">
+                        <input type="radio" name="filterMode" value="or" checked>
+                        <span>OR (いずれか)</span>
+                    </label>
+                    <label class="filter-mode-label">
+                        <input type="radio" name="filterMode" value="and">
+                        <span>AND (全て)</span>
+                    </label>
+                </div>
+
+                <div id="tagFilters" class="tag-filters">
+                    <!-- JavaScriptで動的生成 -->
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-item">
+                    <span class="stat-label">表示中</span>
+                    <span id="nodeCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-divider">/</div>
+                <div class="stat-item">
+                    <span class="stat-label">総ノード数</span>
+                    <span id="totalCount" class="stat-value">0</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="controls">
+                <div class="sort-controls">
+                    <label for="sortSelect">並び替え:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="name-asc">名前 (A→Z)</option>
+                        <option value="name-desc">名前 (Z→A)</option>
+                        <option value="category">カテゴリ順</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="nodeList" class="node-list">
+                <!-- JavaScriptで動的生成 -->
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">🔍</div>
+                <h3>ノードが見つかりません</h3>
+                <p>検索条件やフィルタを変更してみてください</p>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>Generated: <span id="generatedDate">-</span> | Total Nodes: <span id="footerTotalCount">0</span></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
